@@ -4,9 +4,13 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/invoice.css')}}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css')}}">
+  <link rel="icon" href="{{ url_for('static', filename='img/favicon.ico')}}">
   <title>Invoice</title>
 </head>
 <body>
-  <h1>Hello invoice</h1>  
+  <h1>Hello invoice</h1>
+<script src="{{url_for('static', filename='js/invoice.js')}}"></script>
 </body>
 </html>

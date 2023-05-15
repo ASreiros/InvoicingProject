@@ -1,0 +1,30 @@
+html{
+    position: relative;
+    background: linear-gradient(300.13deg, #8BB1CB 0%, rgba(162, 184, 218, 0) 64.36%);
+    background-size: cover;
+    min-height: 100%;
+}
+
+body,
+body * {
+    margin: 0;
+    padding: 0;
+    vertical-align: top;
+    box-sizing: border-box;
+}
+
+
+
+.triangle{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 2;
+    width: 100%;
+    /* max-width: 1430px; */
+    user-select: none;
+}
+
+.big-triangle{
+    z-index: 1;
+}

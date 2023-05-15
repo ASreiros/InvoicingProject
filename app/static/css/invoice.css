@@ -1,0 +1,146 @@
+.invoice{
+    position: absolute;
+    z-index: 3;
+    top:10%;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
+    width: 1010px;
+    /* min-width: 320px;
+    width: 80%; */
+    min-height: 743px;
+    background-color: white;
+    box-shadow: 0 1px 2px #000000, 0 4px 10px #525252;
+
+}
+
+
+.invoice>div{
+    width: 90%;
+    margin: 20px auto;
+    display: flex;
+}
+
+.basic-info{
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.basic-info div, p{
+    margin-bottom: 20px;
+}
+
+
+.basic-info>.doc-name{
+    position: relative;
+    width: 100%;
+}
+
+.basic-info>.doc-name>h2{
+    text-transform: uppercase;
+    color: #00063E;
+}
+
+.basic-info>.doc-name>img{
+    position: absolute;
+    right: 20%;
+    bottom: 50%;
+    transform: translate(0, 50%);
+    width: 15px;
+    object-fit: contain;
+    cursor: pointer;
+}
+
+.date-input{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.date-input>input, .date-input>input:focus{
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.contacts-holder{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+}
+
+.contacts{
+    width: 400px;
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: left;
+}
+
+.contacts>h4{
+    width: 100%;
+    text-align: left;
+}
+
+.contacts>input, .contacts>textarea{
+    width: 100%;
+    margin-bottom: 10px;
+    overflow: hidden;
+    resize: none;
+    background-color: #f0f0f0;
+    border-color: #f0f0f0;
+    padding: 2px 5px;
+
+}
+
+.contacts>label{
+    width: 100%;
+}
+
+
+.inv-lines{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items:flex-start;
+    
+}
+
+.inv-lines>.invoice-line{
+    display: flex;
+    flex-direction: row;
+    justify-content:space-between;
+    min-width: 100%;
+    flex-wrap: wrap;
+}
+
+.invoice-line>input, .invoice-line>input:focus{
+    margin-right: 20px;
+    border: #6FA4C2 solid 1px;
+    outline: none;
+}
+
+.invoice-line>input{
+    width: 50px;
+}
+
+.invoice-line>input[type="text"]:nth-of-type(1){
+    width: 400px;
+}
+
+.invoice-line>button{
+    border: #6FA4C2 solid 1px;
+    color: #6FA4C2;
+    padding: 3px 7px;
+    font-size: 18px;
+    line-height: 18px;
+    cursor: pointer;
+}

@@ -4,13 +4,71 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/invoice.css')}}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css')}}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/invoice.css')}}">
   <link rel="icon" href="{{ url_for('static', filename='img/favicon.ico')}}">
   <title>Invoice</title>
 </head>
 <body>
-  <h1>Hello invoice</h1>
-<script src="{{url_for('static', filename='js/invoice.js')}}"></script>
+  <div class="invoice">
+    <div class="basic-info">
+      <div class="doc-name">
+        <h2>pvm sąskaita-faktūra</h2>
+        <img src="{{url_for('static', filename='img/arrows.png')}}" alt="click">
+      </div>
+      <p>INV <span>001</span></p>
+      <div id="date-input" class="date-input">
+        <input id="date" type="date" value="2023-05-15"  min="2018-01-01" max="2030-12-31">
+        <p>2023-05-15</p>
+      </div>
+      
+    </div>
+    <div class="contacts-holder">
+      <div class="contacts seller">
+        <h4>Pardavėjas:</h4>
+        <label for="s-name">Pavadinimas:</label>
+        <input id="s-name" maxlength="50" name="s-name" type="text" placeholder="">
+        <label for="s-tax">Mokesčio mokėtojo kodas:</label>
+        <input type="text" maxlength="50" id="s-tax" name="s-name" placeholder="">
+        <label for="s-vat">PVM kodas:</label>
+        <input type="text" maxlength="50" id="s-vat" name="s-vat"  placeholder="">
+        <label for="s-address">Adresas:</label>
+        <textarea type="text" maxlength="150" id="s-address" name="s-address" rows="6" cols="30" ></textarea>
+
+      </div>
+      <div class=" contacts buyer">
+        <h4>Pirkėjas:</h4>
+        <label for="b-name">Pavadinimas:</label>
+        <input id="b-name" maxlength="50" name="b-name" type="text" placeholder="">
+        <label for="b-tax">Mokesčio mokėtojo kodas:</label>
+        <input type="text" maxlength="50" id="b-tax" name="b-name" placeholder="">
+        <label for="b-vat">PVM kodas:</label>
+        <input type="text" maxlength="50" id="b-vat" name="b-vat"  placeholder="">
+        <label for="b-address">Adresas:</label>
+        <textarea type="text" maxlength="50" id="b-address" name="b-address" rows="6" cols="30" ></textarea>
+
+      </div>
+    </div>
+    <div class="inv-lines">
+      <div class="invoice-line">
+        <input class="product" maxlength="50" type="text" placeholder="Produktas">
+        <input class="vnt" type="number" min="0" value="1" placeholder="1">
+        <input type="text" max="10" value="vnt">
+        <input class="price" type="number" min="0" value="1" placeholder="1">
+        <input class="total" type="number" readonly value="1">
+        <button class="remove-line">-</button>
+      </div>
+
+    </div>
+    <div class="results">
+
+    </div>
+
+  </div>
+
+
+  <img class="triangle" src="{{ url_for('static', filename='img/triangle 2.svg')}}" draggable="false" alt="">
+  <img class="triangle big-triangle" src="{{ url_for('static', filename='img/triangle 1.svg')}}" draggable="false" alt="">
+  <script src="{{url_for('static', filename='js/invoice.js')}}"></script>
 </body>
 </html>

@@ -50,13 +50,25 @@
       </div>
     </div>
     <div class="inv-lines">
+      <div class="first-line">
+        <p></p>
+        <p>Prekės pavadinimas</p>
+        <p>Kiekis</p>
+        <p>Mat.</p>
+        <p>Kaina</p>
+        <p>Suma</p>
+      </div>
       <div class="invoice-line">
+        <button class="remove-line">-</button>
         <input class="product" maxlength="50" type="text" placeholder="Produktas">
         <input class="vnt" type="number" min="0" value="1" placeholder="1">
-        <input type="text" max="10" value="vnt">
+        <input type="text" maxlength="5" value="vnt">
         <input class="price" type="number" min="0" value="1" placeholder="1">
         <input class="total" type="number" readonly value="1">
-        <button class="remove-line">-</button>
+      </div>
+      <div id="add-line-holder" class="invoice-line">
+        <button id="add-line" class="add-line">+</button>
+        <input type="number" readonly value="0">
       </div>
 
     </div>

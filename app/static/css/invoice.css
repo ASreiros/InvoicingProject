@@ -95,8 +95,8 @@
     margin-bottom: 10px;
     overflow: hidden;
     resize: none;
-    background-color: #f0f0f0;
-    border-color: #f0f0f0;
+    background-color: #DCE8F0;
+    border-color: #DCE8F0;
     padding: 2px 5px;
 
 }
@@ -114,13 +114,42 @@
     
 }
 
-.inv-lines>.invoice-line{
+.inv-lines>.invoice-line, .inv-lines>.first-line{
     display: flex;
     flex-direction: row;
     justify-content:space-between;
     min-width: 100%;
     flex-wrap: wrap;
+    margin: 10px 0;
 }
+
+
+.first-line>p{
+    text-align: center;
+    width: 50px;
+    margin: 0;
+    text-transform:uppercase;
+    text-decoration: underline;
+}
+
+.first-line>p:nth-of-type(1){
+    width: 0px;
+}
+
+
+.first-line>p:nth-of-type(2){
+    width: 400px;
+    text-align: left;
+}
+
+.first-line>p:nth-of-type(4){
+    width: 30px;
+}
+
+.first-line>p:nth-of-type(6){
+    margin-right: 20px;
+}
+
 
 .invoice-line>input, .invoice-line>input:focus{
     margin-right: 20px;
@@ -132,15 +161,31 @@
     width: 50px;
 }
 
+.invoice-line>input[type="number"]{
+    text-align: right;
+}
+
+.invoice-line>input[type="text"]{
+    width: 30px;
+    text-align: center;
+}
+
 .invoice-line>input[type="text"]:nth-of-type(1){
     width: 400px;
+    text-align: left;
 }
 
 .invoice-line>button{
     border: #6FA4C2 solid 1px;
     color: #6FA4C2;
-    padding: 3px 7px;
+    width: 20px;
+    height: 20px;
     font-size: 18px;
     line-height: 18px;
     cursor: pointer;
+    background-color: #DCE8F0;
+}
+
+input:read-only{
+    background-color: #DCE8F0;
 }

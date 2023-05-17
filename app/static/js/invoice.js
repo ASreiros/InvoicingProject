@@ -35,10 +35,10 @@ document.querySelector('#add-line').addEventListener('click', ()=>{
     line.classList.add('invoice-line');
     line.innerHTML = `
     <button class="remove-line">-</button>
-    <input class="product" maxlength="50" type="text" placeholder="Produktas">
-    <input class="vnt" type="number" min="0" value="1" placeholder="1">
+    <input class="product" maxlength="50" type="text">
+    <input class="vnt" type="number" min="0" value="1">
     <input type="text" maxlength="5" value="vnt">
-    <input class="price" type="number" min="0" value="1" placeholder="1">
+    <input class="price" type="number" min="0" value="1">
     <input class="total" type="number" readonly value="1">
     `
     block.insertBefore(line, control);

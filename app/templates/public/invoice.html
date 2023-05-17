@@ -60,16 +60,45 @@
       </div>
       <div class="invoice-line">
         <button class="remove-line">-</button>
-        <input class="product" maxlength="50" type="text" placeholder="Produktas">
-        <input class="vnt" type="number" min="0" value="1" placeholder="1">
+        <input class="product" maxlength="50" type="text">
+        <input class="vnt" type="number" min="0" value="1">
         <input type="text" maxlength="5" value="vnt">
-        <input class="price" type="number" min="0" value="1" placeholder="1">
-        <input class="total" type="number" readonly value="1">
+        <input class="price" type="number" min="0" value="0">
+        <input class="total" type="number" readonly value="0">
       </div>
       <div id="add-line-holder" class="invoice-line">
         <button id="add-line" class="add-line">+</button>
-        <input type="number" readonly value="0">
+        <div class="first-sum-holder">
+          <p class="first-sum">Suma be PVM</p>
+          <input type="number" readonly value="0">
+        </div>
       </div>
+      <div id="VAT-settings" class="right-sum-holder">
+        <div class="first-sum-holder">
+          <select id="pvm-tipas">
+            <option selected value="21">21%</option>
+            <option value="9">9%</option>
+            <option value="5">5%</option>
+            <option value="3">3%</option>
+            <option value="0">0%</option>
+            <option value="21a">21% atv.</option>
+          </select>
+          <input type="number" readonly value="0">
+        </div>
+      </div>
+      <div id="total-sum-holder" class="right-sum-holder">
+        <div class="first-sum-holder">
+          <p class="total-sum">Suma su PVM</p>
+          <input type="number" readonly value="0">
+        </div>
+      </div>
+      <div class="button-holder">
+        <button>Cancel</button>
+        <button>Save and print</button>
+        <button>Save</button>
+      </div>
+      
+
 
     </div>
     <div class="results">

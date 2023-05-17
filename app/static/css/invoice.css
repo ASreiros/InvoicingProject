@@ -1,15 +1,11 @@
 .invoice{
-    position: absolute;
-    z-index: 3;
-    top:10%;
+
+    margin-top: 10vh;
+    margin-bottom: 10vh;
     margin-left: auto;
     margin-right: auto;
-    left: 0;
-    right: 0;
     text-align: center;
     width: 1010px;
-    /* min-width: 320px;
-    width: 80%; */
     min-height: 743px;
     background-color: white;
     box-shadow: 0 1px 2px #000000, 0 4px 10px #525252;
@@ -19,7 +15,7 @@
 
 .invoice>div{
     width: 90%;
-    margin: 20px auto;
+    margin: 10px auto;
     display: flex;
 }
 
@@ -30,7 +26,7 @@
 }
 
 .basic-info div, p{
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 
@@ -42,6 +38,7 @@
 .basic-info>.doc-name>h2{
     text-transform: uppercase;
     color: #00063E;
+    margin: 20px;
 }
 
 .basic-info>.doc-name>img{
@@ -61,10 +58,17 @@
     justify-content: center;
 }
 
+.date-input *{
+    margin: 0;
+}
+
 .date-input>input, .date-input>input:focus{
     opacity: 0;
     width: 0;
     height: 0;
+}
+
+.date-input>p{
 }
 
 .contacts-holder{
@@ -151,17 +155,17 @@
 }
 
 
-.invoice-line>input, .invoice-line>input:focus{
+.invoice-line input, .invoice-line input:focus{
     margin-right: 20px;
     border: #6FA4C2 solid 1px;
     outline: none;
 }
 
-.invoice-line>input{
+.invoice-line input{
     width: 50px;
 }
 
-.invoice-line>input[type="number"]{
+.invoice-line input[type="number"]{
     text-align: right;
 }
 
@@ -189,3 +193,59 @@
 input:read-only{
     background-color: #DCE8F0;
 }
+
+
+.first-sum-holder{
+    display: flex;
+    width: fit-content;
+    align-items:baseline;
+    gap: 50px;
+    flex-direction: row;
+}
+
+
+.first-sum-holder>input{
+    width: 50px;
+    height: 20px;
+}
+
+.first-sum{
+    margin-top: 30px;
+}
+
+.right-sum-holder{
+    display: flex;
+    flex-direction: row;
+    justify-content:end;
+    min-width: 100%;
+    flex-wrap: wrap;
+    margin: 10px 0;
+}
+
+.right-sum-holder input, .right-sum-holder input:focus{
+    text-align: right;
+    width: 50px;
+    height: 20px;
+    margin-right: 20px;
+    border: #6FA4C2 solid 1px;
+    outline: none;
+}
+
+.button-holder{
+    display: flex;
+    flex-direction: row;
+    width: fit-content;
+    margin: 30px 20px 30px auto;
+    gap: 40px;
+}
+
+.button-holder>button{
+    border: #6FA4C2 solid 1px;
+    background-color: #DCE8F0;
+    color: #6FA4C2;
+    padding: 10px 10px;
+    min-width: 100px;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+

@@ -51,6 +51,22 @@
     cursor: pointer;
 }
 
+.inv-name{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.inv-name>input, .inv-name>input:focus{
+    text-align: center;
+    width: 100px;
+    height: 20px;
+    margin-right: 20px;
+    
+}
+
+
+
 .date-input{
     display: flex;
     flex-direction: column;
@@ -142,7 +158,7 @@
 
 
 .first-line>p:nth-of-type(2){
-    width: 400px;
+    width: 300px;
     text-align: left;
 }
 
@@ -162,7 +178,7 @@
 }
 
 .invoice-line input{
-    width: 50px;
+    width: 100px;
 }
 
 .invoice-line input[type="number"]{
@@ -170,7 +186,7 @@
 }
 
 .invoice-line>input[type="text"]{
-    width: 30px;
+    width: 50px;
     text-align: center;
 }
 
@@ -179,7 +195,7 @@
     text-align: left;
 }
 
-.invoice-line>button{
+.invoice-line>button, .add-line-holder>button{
     border: #6FA4C2 solid 1px;
     color: #6FA4C2;
     width: 20px;
@@ -203,9 +219,18 @@ input:read-only{
     flex-direction: row;
 }
 
+.add-line-holder{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+
+
+
 
 .first-sum-holder>input{
-    width: 50px;
+    width: 70px;
     height: 20px;
 }
 
@@ -224,7 +249,7 @@ input:read-only{
 
 .right-sum-holder input, .right-sum-holder input:focus{
     text-align: right;
-    width: 50px;
+    width: 100px;
     height: 20px;
     margin-right: 20px;
     border: #6FA4C2 solid 1px;

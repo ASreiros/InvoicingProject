@@ -4,6 +4,11 @@ from app import calculate
 
 
 @app.route("/")
+def view_home():
+    return render_template("public/index.html")
+
+
+@app.route("/invoice")
 def view_invoice():
     return render_template("public/invoice.html")
 

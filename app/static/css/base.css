@@ -28,3 +28,9 @@ body * {
 .big-triangle{
     z-index: -2;
 }
+
+
+@font-face{
+    font-family: Mono;
+    src: url('../fonts/DM_Mono/DMMono-Regular.ttf');
+    }

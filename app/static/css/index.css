@@ -4,17 +4,31 @@
     flex-direction: row;
     flex-wrap:nowrap;
     font-size: 0;
+    justify-content: center;
+    gap: 90px;
 }
 
 .main-screen>.left-part{
-    width: 360px;
-    min-height: 100px;
-    margin: 57px 90px 0 135px;
-    background-color: pink;
+    margin: 57px 0 0 135px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    font-size: 12px;
 }
 
 .main-screen>img{
-    width: calc(100vw - 585px);
+    width: 664px;
     max-height: 615px;
     object-fit: contain;
+}
+
+h1{
+    font-family: Mono;
+    text-transform: uppercase;
+    font-size: 64px;
+    background: -webkit-linear-gradient(180deg, #59A0C9 0%, rgba(111, 164, 194, 0.5) 83.85%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    /* color: linear-gradient(180deg, #59A0C9 0%, rgba(111, 164, 194, 0.5) 83.85%); */
 }

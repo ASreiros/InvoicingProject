@@ -13,14 +13,66 @@
   <div class="main-screen">
     <div class="left-part">
       <h1>Sąskaita</h1>
-      <p>lorem ipsum</p>
+      <p>Sąskaitų faktūrų išrašymo modulis <span>nemokamai</span></p>
+      <div class="btn-block">
+        <button id="join-btn" class="btn-main">Prisijungti</button>
+        <button id="register-btn" class="btn-main">Registruotis</button>
+        <button id="demo-btn" class="btn-main">Demo</button>
+      </div>
     </div>
-    <img src="{{url_for('static', filename='img/accountant.png')}}" alt="accountant">
+    <img draggable="false" src="{{url_for('static', filename='img/accountant.png')}}" alt="accountant">
   </div>
+  <form id="register-form" class="register noshow hidden-form">
+    <h2>Registruotis</h2>
+    <div class="input-holder">
+      <label for="Vardas">Vardas</label>
+      <input id="r_name" type="text">
+    </div>
+    <div class="input-holder">
+      <label for="r_email">El. paštas</label>
+      <input id="r_email" type="email">
+    </div>
+    <div class="input-holder">
+      <label for="r_password">Slaptažodis</label>
+      <input id="r_password" type="password">
+    </div>
+    <div class="input-holder">
+      <label for="r_password_repeat">Pakartokite slaptažodį</label>
+      <input id="r_password_repeat" type="password">
+      <p>Slaptažodyje turi būti bent 1 didžioji raidė [A-Z], 1 skaitmuo [0-9]</p>
+    </div>
+    <button type="submit">Registruotis</button>
+    <div class="error-message noshow">
+      <p>Klaidos aprašymas</p>
+    </div>
+    <div>
+      <p>Jau turite paskyrą? <span>Prisijungti</span></p>
+    </div>
+  </form>
+  <form id="join-form" class="signin noshow hidden-form">
+    <h2>Prisijungti arba <span>Registruotis</span></h2>
+    <div class="input-holder">
+      <label for="Vardas">Vardas</label>
+      <input id="r_name" type="text">
+    </div>
+    <div class="input-holder">
+      <label for="r_password">Slaptažodis</label>
+      <input id="r_password" type="password">
+    </div>
+    <button type="submit">Prisijungti</button>
+    <div class="error-message noshow">
+      <p>Klaidos aprašymas</p>
+    </div>
+    <div>
+      <p>Dar neturite paskyros? <span>Užsiregistruokite</span></p>
+    </div>
+
+  </form>
+  <div class="modal noshow"> </div>
 
 
-  <img class="triangle" src="{{ url_for('static', filename='img/triangle 2.svg')}}" draggable="false" alt="">
-  <img class="triangle big-triangle" src="{{ url_for('static', filename='img/triangle 1.svg')}}" draggable="false" alt="">
-  <script src="{{url_for('static', filename='js/invoice.js')}}"></script>
+  <div class="triangle"></div>
+  <div class="triangle big-triangle"></div>
+  <script src="{{url_for('static', filename='js/index.js')}}"></script>
 </body>
 </html>

@@ -20,13 +20,20 @@ body * {
     bottom: 0;
     right: 0;
     z-index: -1;
-    width: 100%;
-    /* max-width: 1430px; */
     user-select: none;
+    width: 0px;
+    height: 0px;
+    border-style: solid;
+    border-width: 0 0px 30vh 100vw;
+    border-color: transparent transparent #6FA4C2 transparent;
+    transform: rotate(0deg);
 }
 
 .big-triangle{
     z-index: -2;
+    border-width: 0 0px 65vh 100vw;
+    border-color: transparent transparent rgba(111, 164, 194, 0.5) transparent;
+
 }
 
 

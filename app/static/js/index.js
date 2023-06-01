@@ -16,3 +16,10 @@ document.querySelector('.modal').addEventListener('click', ()=>{
     document.querySelector('.modal').classList.add('noshow')
 })
 
+document.querySelectorAll('.hidden-form span').forEach(span => {
+    span.addEventListener('click', ()=>{
+        document.querySelector('.signin').classList.toggle('noshow')
+        document.querySelector('.register').classList.toggle('noshow')
+    })
+});
+

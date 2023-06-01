@@ -1,3 +1,4 @@
+from app import app
 
 def calculate_invoice_lines(req):
 	print("req:", req)

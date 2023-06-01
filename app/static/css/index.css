@@ -51,7 +51,7 @@ h1::before{
     width: 72px;
     height: 82px;
     object-fit: contain;
-    content: url('../img/Logo.png'); 
+    content: url('../img/Logo.png');
 }
 
 .left-part>p{
@@ -92,11 +92,11 @@ h1::before{
 
 .hidden-form{
     width: 500px;
-    height: 500px;
+    height: 600px;
     background-color: #fff;
     position: absolute;
     left: 50%;
-    top: 0%;
+    top: 10vh;
     z-index: 3;
     transform: translate(50, 50);
     box-shadow: 0 4px 2px -2px gray;
@@ -143,7 +143,7 @@ h1::before{
 }
 
 .hidden-form>button{
-    height: 31px;
+    height: 40px;
     background-color: rgba(111, 164, 194, 1);
     color: #fff;
     box-shadow: 0 4px 2px -2px gray;
@@ -152,6 +152,7 @@ h1::before{
     cursor: pointer;
     margin-top: 20px;
     margin-bottom: 35px;
+    line-height: 40px;
 }
 
 
@@ -163,9 +164,10 @@ h1::before{
     font-size: 12px;
 }
 
-.hidden-form>div:last-of-type>p>span{
+.hidden-form span{
     color: rgba(111, 164, 194, 1);
     cursor: pointer;
+
 }
 
 
@@ -199,6 +201,7 @@ h1::before{
 .signin>h2>span{
     color: rgba(111, 164, 194, 1);
     cursor: pointer;
+    font-size: 16px;
 }
 
 

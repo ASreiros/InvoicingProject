@@ -1,33 +1,28 @@
-from app import app
-import sqlite3
-
-
-def connect_db():
-	db = sqlite3.connect("projectInvoice.db")
-	cursor = db.cursor()
-	return cursor
-
+from app import app, db
+from app import models
+from werkzeug.security import generate_password_hash, check_password_hash
 
 def add_user(data):
-	db = sqlite3.connect("projectInvoice.db")
-	cursor = db.cursor()
-	print(data)
+	user = models.User(username=data['r_login'], name=data['r_name'], password=data['r_password'], email=data['r_email'])
 	try:
-		cursor.execute(f"""
-		INSERT INTO users (login, name, email, password)
-		VALUES 
-			('{data['r_login']}', '{data['r_name']}', '{data['r_email']}', '{data['r_password']}');
-		""")
-		result = cursor.fetchall()
-		print(result)
-		db.commit()
-		db.close()
+		db.session.add(user)
+		db.session.commit()
 	except Exception as e:
 		print(e)
 		return e
 	else:
-		print("user added")
 		return 1
+
+
+def check_user(data):
+	user = models.User.query.filter_by(username=data['s_login']).first()
+	check_password_hash(user.password, data['s_password'])
+	print(user)
+	print()
+	if user and check_password_hash(user.password, data['s_password']):
+		return user
+	else:
+		return False
 
 
 

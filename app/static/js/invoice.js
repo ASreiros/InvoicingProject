@@ -1,4 +1,13 @@
 
+const documentType = document.querySelector('#inv-type').innerHTML
+if (documentType == 'sąskaita-faktūra'){
+    document.querySelector('#VAT-settings').classList.add("noshow")
+    document.querySelector('#total-sum-holder-vat').classList.add("noshow")
+    console.log("no show added");
+} else{
+    console.log(documentType);
+}
+
 document.querySelector('.basic-info>.doc-name>img').addEventListener('click',function(){
     dokName = document.querySelector('.basic-info>.doc-name>h2')
     current = dokName.innerHTML
@@ -42,12 +51,12 @@ document.querySelector('#add-line').addEventListener('click', ()=>{
     line = document.createElement("div");
     line.classList.add('invoice-line');
     line.innerHTML = `
-    <button class="remove-line">-</button>
-    <input class="product" maxlength="50" type="text">
-    <input class="vnt user-input" type="number" value="1">
-    <input class="vnt-name" type="text" maxlength="5" value="vnt">
-    <input class="price user-input" type="number"  value="0">
-    <input class="total" type="number" readonly value="0">
+    <button type="button" class="remove-line">-</button>
+    <input class="product" name="product-name" required maxlength="50" type="text">
+    <input class="vnt user-input" name="product-vnt" required step="0.01" type="number" value="1">
+    <input class ='vnt-name' name="vnt-name" type="text" required maxlength="5" value="vnt">
+    <input class="price user-input" name="price" step="0.01" required type="number" value="0">
+    <input class="total" name="line-total" type="number" readonly value="0">
     `
     block.insertBefore(line, control);
     add_usability_to_new_line()
@@ -132,4 +141,59 @@ function input_entered(){
 
 
     })}
+
+const form = document.querySelector(".invoice")
+form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    lines = []
+    document.querySelectorAll('.invoice-line').forEach(line=>{
+        line_info = {
+            'product': line.querySelector('.product').value,
+            'quantity': line.querySelector('.vnt').value,
+            'unit': line.querySelector('.vnt-name').value,
+            'price': line.querySelector('.price').value,
+            'total': line.querySelector('.total').value,
+        }
+        
+        lines.push(line_info)
+    })
+
+
+    data = {
+        "type": document.querySelector('#inv-type').innerHTML,
+        "date": document.querySelector('#date').value,
+        "series": document.querySelector('#inv-series').value,
+        "number": document.querySelector('#inv-number').value,
+        "buyer-name": document.querySelector('#b-name').value, 
+        "buyer-tax": document.querySelector('#b-tax').value, 
+        "buyer-vat-tax": document.querySelector('#b-vat').value, 
+        "buyer-address": document.querySelector('#b-address').value, 
+        "beforeVat": document.querySelector('#beforeVAT').value,
+        "vat": document.querySelector('#VAT').value,
+        "vatTypas": document.querySelector('#pvm-tipas').value,
+        "afterVat": document.querySelector('#afterVAT').value, 
+        "lines": lines
+    }
+
+
+    fetch(`${window.origin}/save-invoice`,{
+        method: "POST",
+        credentials: "include",
+        body:JSON.stringify(data),
+        cache:"no-cache",
+        headers: new Headers({
+            "content-type":"application/json"
+        })
+    })
+    .then(function(response){
+        if (response.status != 200){
+            console.log("Response status is not 200:  ", response.status, response.statusText);
+            return
+        }
+
+        response.json().then(function(info){
+            console.log("info after fetch:",info);
+        });
+    });
+})        
 

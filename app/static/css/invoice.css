@@ -1,7 +1,44 @@
-.invoice{
+.nav-line{
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    width: 100%;
+    padding: 5px 30px;
+}
 
-    margin-top: 10vh;
-    margin-bottom: 10vh;
+
+.nav-line button{
+    border: rgba(111, 164, 194, 1) 2px solid;
+    cursor: pointer;
+    padding: 5px;
+    background-color: transparent;
+    position: relative;
+}
+
+.nav-line button>img{
+    object-fit: contain;
+    width: 25px;
+    height: 25px;
+    filter: invert(69%) sepia(23%) saturate(630%) hue-rotate(158deg) brightness(86%) contrast(87%);
+}
+
+.nav-line button::after{
+    content: "Grižti į sąrašą";
+    position: absolute;
+    z-index: 3;
+    left: 0px;
+    bottom: -35px;
+    transform: translate(-25%, 0);
+    display: none;
+    color: rgba(111, 164, 194, 1);
+}
+
+.nav-line button:hover::after{
+    display: block;
+}
+
+.invoice{
     margin-left: auto;
     margin-right: auto;
     text-align: center;
@@ -43,7 +80,7 @@
 
 .basic-info>.doc-name>img{
     position: absolute;
-    right: 20%;
+    right: 30%;
     bottom: 50%;
     transform: translate(0, 50%);
     width: 15px;
@@ -264,7 +301,7 @@ input:read-only{
     gap: 40px;
 }
 
-.button-holder>button{
+.button-holder button{
     border: #6FA4C2 solid 1px;
     background-color: #DCE8F0;
     color: #6FA4C2;
@@ -272,5 +309,10 @@ input:read-only{
     min-width: 100px;
     text-transform: uppercase;
     cursor: pointer;
+}
+
+
+.noshow{
+    display: none;
 }
 

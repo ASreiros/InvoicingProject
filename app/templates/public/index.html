@@ -33,7 +33,7 @@
       <input id="r_login" required type="text" name="r_login" value="{{data.r_login}}">
     </div>
     <div class="input-holder">
-      <label for="Vardas">Vardas/Pavadinimas sąskaitoje</label>
+      <label for="r_name">Vardas/Pavadinimas sąskaitoje</label>
       <input id="r_name" required type="text" name="r_name" value="{{data.r_name}}">
     </div>
     <div class="input-holder">
@@ -47,7 +47,7 @@
     <div class="input-holder">
       <label for="r_password_repeat">Pakartokite slaptažodį</label>
       <input id="r_password_repeat" required type="password" name="r_password_repeat">
-      <p>Slaptažodyje turi būti bent 1 didžioji raidė [A-Z], 1 skaitmuo [0-9]</p>
+      <p>Slaptažodyje turi būti bent 1 didžioji raidė [A-Z], 1 skaitmuo [0-9], bent 3 ženklų ilgis</p>
     </div>
     <button type="submit" name="register_form">Registruotis</button>
     {% if data.r_error == "" %}
@@ -88,6 +88,19 @@
     </div>
 
   </form>
+
+  <!-- Cookie consent -->
+  {% if cookies_check() %}
+        {# then user has already consented so no requirement for consent banner #}
+{% else %}
+        {# show a cookie consent banner #}
+        <div class="cookie-consent-container">
+            <p>Šitame puslapije naudojami slapukai (angl. cookies) padeda užtikrinti Jums galimybę naršyti dar patogiau ir nauduotis prisijungimo funkcionalu</p>
+            <button id="cookie-consent">Leisti nauduoti slapukus</button>
+        </div>
+{% endif %}
+
+
   {% if data.r_error == "" and data.s_error == ""%}
   <div class="modal noshow"></div>
   {% else %}

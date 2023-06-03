@@ -90,109 +90,6 @@ h1::before{
     color: #FFFFFF;
 }
 
-.hidden-form{
-    width: 500px;
-    height: 600px;
-    background-color: #fff;
-    position: absolute;
-    left: 50%;
-    top: 10vh;
-    z-index: 3;
-    transform: translate(50, 50);
-    box-shadow: 0 4px 2px -2px gray;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    transform: translate(-50%, -100%);
-    font-family: 'Inter';
-    position: relative;
-}
-
-.hidden-form>h2{
-    margin-top: 51px;
-    margin-bottom: 27px;
-    font-family: 'Mono';
-    font-size: 22px;
-    color: rgba(111, 164, 194, 1);
-}
-
-.hidden-form * {
-    width: 275px;
-}
-
-.hidden-form .error-message{
-    position: absolute;
-    bottom: -70px;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: rgba(206, 218, 231, 1);
-    font-size: 12px;
-    font-family: 'Mono';
-    width: 273px;
-    min-height: 30px;
-}
-
-.error-message>p{
-    margin: auto;
-    width: 100%;
-    color: rgba(255, 10, 10, 1);
-    text-align: center;
-    padding: 10px;
-    line-height: 12px;
-}
-
-.hidden-form>button{
-    height: 40px;
-    background-color: rgba(111, 164, 194, 1);
-    color: #fff;
-    box-shadow: 0 4px 2px -2px gray;
-    font-size: 20px;
-    border: none;
-    cursor: pointer;
-    margin-top: 20px;
-    margin-bottom: 35px;
-    line-height: 40px;
-}
-
-
-.hidden-form>div:last-of-type{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    margin-bottom: 44px;
-    font-size: 12px;
-}
-
-.hidden-form span{
-    color: rgba(111, 164, 194, 1);
-    cursor: pointer;
-
-}
-
-
-
-.input-holder{
-    margin-bottom: 10px;
-}
-
-.input-holder>input, .input-holder>input:focus{
-    height: 31px;
-    background-color: rgba(205, 217, 230, 1);
-    color: black;
-    padding: 0 5px;
-    border: none;
-    outline: none;
-    font-size: 14px;
-}
-
-.input-holder>label{
-    font-size: 14px;
-}
-
-.input-holder>p{
-    font-size: 9px;
-}
 
 .signin>h2{
     color: #000;
@@ -215,6 +112,36 @@ h1::before{
     top: 0;
     left: 0;
     background-color: rgba(0, 0, 0,0.1);
+}
+
+
+.cookie-consent-container{
+    position: absolute;
+    bottom: 50px;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items:baseline;
+    gap: 20px;
+    width: 100%;
+    flex-direction: row;
+    background-color: #fff;
+    color: rgba(111, 164, 194, 1);
+    font-size: 16px;
+    padding: 0px 20px;
+}
+
+.cookie-consent-container>button{
+    min-height: 40px;
+    background-color: rgba(111, 164, 194, 1);
+    color: #fff;
+    box-shadow: 0 4px 2px -2px gray;
+    font-size: 20px;
+    border: none;
+    cursor: pointer;
+    margin-top: 20px;
+    margin-bottom: 35px;
+    padding: 5px 20px;
 }
 
 .noshow{

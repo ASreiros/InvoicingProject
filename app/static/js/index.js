@@ -23,3 +23,13 @@ document.querySelectorAll('.hidden-form span').forEach(span => {
     })
 });
 
+// Cookie consent
+
+const cookie_consent = document.querySelector('#cookie-consent')
+if (cookie_consent){
+    cookie_consent.addEventListener('click', ()=>{
+        document.cookie = "cookie_consent=true";
+        document.querySelector('.cookie-consent-container').classList.add('noshow')
+    
+    })
+}

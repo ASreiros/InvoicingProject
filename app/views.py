@@ -1,5 +1,5 @@
 from app import app
-from flask import render_template, jsonify, request, make_response, redirect
+from flask import render_template, jsonify, request, make_response, redirect, url_for
 from app import calculate
 from app import db_operations
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -53,8 +53,9 @@ def register():
     else:
         data['r_password'] = hashed_password
         result = db_operations.add_user(data)
-        if result == 1:
-            return "User registered"
+        if result:
+            login_user(result, remember=False)
+            return redirect(url_for('list'))
         else:
             data['r_password'] == ""
             if "UNIQUE" in str(result) and 'user.username' in str(result):
@@ -89,11 +90,19 @@ def login():
         result = db_operations.check_user(data)
         if result:
             print(result)
-            return f'User: {result.username}, {result.name}, {result.email}, {result.id}'
+            login_user(result, remember=False)
+            return redirect(url_for('list'))
         else:
             error = "Prisijungti nepavyko"
             data['s_error'] = error
             return render_template("public/index.html", data=data)
+
+
+
+@app.route("/list")
+@login_required
+def list():
+    return render_template("public/list.html", name=current_user.name)
 
 @app.route("/invoice")
 def view_invoice():

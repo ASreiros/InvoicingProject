@@ -9,9 +9,9 @@ def add_user(data):
 		db.session.commit()
 	except Exception as e:
 		print(e)
-		return e
+		return False
 	else:
-		return 1
+		return user
 
 
 def check_user(data):

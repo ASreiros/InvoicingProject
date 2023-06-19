@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css')}}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/invoice.css')}}">
+  <link rel="icon" href="{{ url_for('static', filename='img/favicon.ico')}}">
+  <title>Invoice</title>
+</head>
+<body>
+  <div class="nav-line">
+    <a href="{{url_for('list_route')}}"><button id="list-btn"><img src="{{ url_for('static', filename='img/list.svg')}}" alt="Grižti į sąrašą"></button></a> 
+  </div>
+  <form class="invoice" action="/save-invoice" method="post">
+    <div class="basic-info">
+      <div class="doc-name">
+        <h2 id="inv-type">{{invoice_data['type']}}</h2>
+        <img src="{{url_for('static', filename='img/arrow.svg')}}" alt="click">
+      </div>
+      <div class="inv-name">
+        <input id="inv-series" type="text" value="{{invoice_data['series']}}">
+        <input id="inv-number" type="number" required value="{{invoice_data['number']}}">
+      </div>
+      <div id="date-input" class="date-input">
+        <input id="date" type="date" value="{{invoice_data['date']}}"  min="2010-01-01" max="2030-12-31">
+        <p id="date-text">{{invoice_data['date']}}</p>
+      </div>
+      
+    </div>
+    <div class="contacts-holder">
+      <div class="contacts seller">
+        <h4>Pardavėjas:</h4>
+        <label for="s-name">Pavadinimas:</label>
+        <input id="s-name" maxlength="50" name="s-name" type="text" readonly value="{{user_data['name']}}">
+        <label for="s-tax">Mokesčio mokėtojo kodas:</label>
+        <input type="text" maxlength="50" id="s-tax" name="s-tax" readonly value="{{user_data['tax_code']}}">
+        <label for="s-vat">PVM kodas:</label>
+        <input type="text" maxlength="50" id="s-vat" name="s-vat" readonly value="{{user_data['vat_code']}}">
+        <label for="s-address">Adresas:</label>
+        <textarea type="text" maxlength="150" id="s-address" name="s-address" readonly rows="6" cols="30" >{{user_data['address']}}</textarea>
+
+      </div>
+      <div class=" contacts buyer">
+        <h4>Pirkėjas:</h4>
+        <label for="b-name">Pavadinimas:</label>
+        <input id="b-name" maxlength="50" name="b-name" type="text" required value="{{buyer_data['name']}}">
+        <label for="b-tax">Mokesčio mokėtojo kodas:</label>
+        <input type="text" maxlength="50" id="b-tax" name="b-name" placeholder="{{buyer_data['tax_code']}}">
+        <label for="b-vat">PVM kodas:</label>
+        <input type="text" maxlength="50" id="b-vat" name="b-vat"  placeholder="{{buyer_data['vat_code']}}">
+        <label for="b-address">Adresas:</label>
+        <textarea type="text" maxlength="50" id="b-address" name="b-address" rows="6" cols="30" >{{buyer_data['address']}}</textarea>
+
+      </div>
+    </div>
+    <div class="inv-lines">
+      <div class="first-line">
+        <p></p>
+        <p>Prekės pavadinimas</p>
+        <p>Kiekis</p>
+        <p>Mat.</p>
+        <p>Kaina</p>
+        <p>Suma</p>
+      </div>
+      <div class="invoice-line">
+        <button type="button" class="remove-line">-</button>
+        <input class="product" name="product-name" required maxlength="50" type="text">
+        <input class="vnt user-input" name="product-vnt" required step="0.01" type="number" value="1">
+        <input class ='vnt-name' name="vnt-name" type="text" required maxlength="5" value="vnt">
+        <input class="price user-input" name="price" step="0.01" required type="number" value="0">
+        <input class="total" name="line-total" type="number" readonly value="0">
+      </div>
+      <div id="add-line-holder" class="add-line-holder">
+        <button type="button" id="add-line" class="add-line">+</button>
+      </div>
+      <div id="total-sum-holder" class="right-sum-holder">
+        <div class="first-sum-holder">
+          <p class="first-sum">Suma be PVM</p>
+          <input id="beforeVAT" type="number" name="beforeVAT" readonly value="{{invoice_data['sum_before_vat']}}">
+        </div>
+      </div>
+      <div id="VAT-settings" class="right-sum-holder">
+        <div class="first-sum-holder">
+          <select id="pvm-tipas" name="select-vat-type" >
+            <option {{'selected' if invoice_data['vat_setting'] == "21" else ''}} value="21">21%</option>
+            <option {{'selected' if invoice_data['vat_setting'] == "9" else ''}} value="9">9%</option>
+            <option {{'selected' if invoice_data['vat_setting'] == "5" else ''}} value="5">5%</option>
+            <option {{'selected' if invoice_data['vat_setting'] == "6" else ''}} value="6">6%</option>
+            <option {{'selected' if invoice_data['vat_setting'] == "0" else ''}} value="0">0%</option>
+            <option {{'selected' if invoice_data['vat_setting'] == "21a" else ''}} value="21a">21% atv.</option>
+          </select>
+          <input id="VAT" type="number" name="VAT" readonly value="{{invoice_data['vat']}}">
+        </div>
+      </div>
+      <div id="total-sum-holder-vat" class="right-sum-holder">
+        <div class="first-sum-holder">
+          <p class="total-sum">Suma su PVM</p>
+          <input id="afterVAT" type="number" name="afterVAT" readonly value="{{invoice_data['sum_after_vat']}}">
+        </div>
+      </div>
+      <div class="button-holder">
+        <a href="{{url_for('list_route')}}"><button type="button">Cancel</button></a>
+        <button type="submit" name="submit-button" value="print">Save and print</button>
+        <button type="submit" name="submit-button" value="save">Save</button>
+      </form>
+      
+
+
+    </div>
+    <div class="results">
+
+    </div>
+
+  </div>
+
+
+  <div class="triangle"></div>
+  <div class="triangle big-triangle"></div>
+  <script src="{{url_for('static', filename='js/invoice.js')}}"></script>
+</body>
+</html>

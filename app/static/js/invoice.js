@@ -164,6 +164,10 @@ form.addEventListener('submit', (event) => {
         "date": document.querySelector('#date').value,
         "series": document.querySelector('#inv-series').value,
         "number": document.querySelector('#inv-number').value,
+        "seller-name": document.querySelector('#s-name').value,
+        "seller-tax": document.querySelector('#s-tax').value,
+        "seller-vat-tax": document.querySelector('#s-vat').value,
+        "seller-address": document.querySelector('#s-address').value,
         "buyer-name": document.querySelector('#b-name').value, 
         "buyer-tax": document.querySelector('#b-tax').value, 
         "buyer-vat-tax": document.querySelector('#b-vat').value, 
@@ -193,7 +197,36 @@ form.addEventListener('submit', (event) => {
 
         response.json().then(function(info){
             console.log("info after fetch:",info);
+            const aElement = document.createElement('a');
+            const href = `${window.origin}/list`
+            aElement.href = href;
+            aElement.click();
+            aElement.remove();
         });
     });
 })        
 
+
+document.querySelector('#inv-series').addEventListener("input", ()=>{
+    fetch(`${window.origin}/get_number`,{
+        method: "POST",
+        credentials: "include",
+        body:JSON.stringify({'series': document.querySelector('#inv-series').value}),
+        cache:"no-cache",
+        headers: new Headers({
+            "content-type":"application/json"
+        })
+    })
+    .then(function(response){
+        if (response.status != 200){
+            console.log("Response status is not 200:  ", response.status, response.statusText);
+            document.querySelector('#inv-number').value = "1"
+            return
+        }
+
+        response.json().then(function(info){
+            console.log("info after fetch:",info);
+            document.querySelector('#inv-number').value = `${info[0][0]}`
+        });
+    });
+})

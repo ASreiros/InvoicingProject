@@ -20,7 +20,7 @@
         <img src="{{url_for('static', filename='img/arrow.svg')}}" alt="click">
       </div>
       <div class="inv-name">
-        <input id="inv-series" type="text" value="{{invoice_data['series']}}">
+        <input id="inv-series" required type="text" value="{{invoice_data['series']}}">
         <input id="inv-number" type="number" required value="{{invoice_data['number']}}">
       </div>
       <div id="date-input" class="date-input">
@@ -33,13 +33,13 @@
       <div class="contacts seller">
         <h4>Pardavėjas:</h4>
         <label for="s-name">Pavadinimas:</label>
-        <input id="s-name" maxlength="50" name="s-name" type="text" readonly value="{{user_data['name']}}">
+        <input id="s-name" maxlength="50" name="s-name" type="text" value="{{user_data['name']}}">
         <label for="s-tax">Mokesčio mokėtojo kodas:</label>
-        <input type="text" maxlength="50" id="s-tax" name="s-tax" readonly value="{{user_data['tax_code']}}">
+        <input type="text" maxlength="50" id="s-tax" name="s-tax" value="{{user_data['tax_code']}}">
         <label for="s-vat">PVM kodas:</label>
-        <input type="text" maxlength="50" id="s-vat" name="s-vat" readonly value="{{user_data['vat_code']}}">
+        <input type="text" maxlength="50" id="s-vat" name="s-vat" value="{{user_data['vat_code']}}">
         <label for="s-address">Adresas:</label>
-        <textarea type="text" maxlength="150" id="s-address" name="s-address" readonly rows="6" cols="30" >{{user_data['address']}}</textarea>
+        <textarea type="text" maxlength="150" id="s-address" name="s-address" rows="6" cols="30" >{{user_data['address']}}</textarea>
 
       </div>
       <div class=" contacts buyer">

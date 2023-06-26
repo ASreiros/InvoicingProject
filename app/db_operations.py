@@ -111,3 +111,21 @@ def delete_invoice(invoice_id, user_id):
 		return False
 	else:
 		return True
+
+
+def collect_invoices(user_id):
+	invoices = models.Invoice.query.filter_by(user_id=user_id).all()
+	return invoices
+
+
+def get_invoice_number(user_id, series):
+	invoices = models.Invoice.query.filter_by(user_id=user_id, series=series).all()
+	high_number = 0
+	for inv in invoices:
+		if inv.number > high_number:
+			high_number = inv.number
+	return high_number + 1
+
+
+
+

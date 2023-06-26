@@ -99,7 +99,9 @@ def login():
 @login_required
 def list_route():
     data = validation.validate_user_data(current_user)
-    return render_template("registered/list.html", data=data)
+    invoices = db_operations.collect_invoices(current_user.id)
+    print(invoices)
+    return render_template("registered/list.html", data=data, invoices=invoices)
 
 
 @app.route("/user-settings", methods=["POST"])
@@ -107,7 +109,7 @@ def list_route():
 def user_settings():
     print(request.form)
     print(request.form['submit-button'])
-    if request.form['submit-button'] == 'cancel':
+    if request.form['submit-button'] == 'cancel-list':
         return redirect("/list")
     error = ""
     error += validation.validate_name(request.form['c_name'])
@@ -169,7 +171,8 @@ def new_invoice():
         'name': current_user.name,
         'vat_code': current_user.vat_code,
         'tax_code': current_user.tax_code,
-        'address': current_user.address
+        'address': current_user.address,
+        'error': "test"
     }
 
     buyer_data = {
@@ -179,10 +182,12 @@ def new_invoice():
         'address': ""
     }
 
+    print("series:   ", current_user.series)
+
     invoice_data = {
         'date': datetime.now().strftime('%Y-%m-%d'),
-        'number': 1,
-        'series': 'INV',
+        'number': db_operations.get_invoice_number(current_user.id, current_user.series),
+        'series': current_user.series,
         'type': 'pvm sąskaita-faktūra',
         "vat_setting": '21',
         'sum_before_vat': 0,
@@ -217,11 +222,41 @@ def save_new_invoice():
     flag = False
     if error == "":
         flag = True
-        if not db_operations.save_invoice_to_db(req, current_user.id):
+        seller_info = {
+            'name': req["seller-name"],
+            'tax': req['seller-tax'],
+            'vat': req['seller-vat-tax'],
+            'address': req['seller-address']
+        }
+        if not db_operations.edit_user(current_user.id, seller_info):
+            flag = False
+            error += "Pardavėjo duomenys išsauguoti nepavyko \n"
+        elif not db_operations.save_invoice_to_db(req, current_user.id):
             error += "Išsauguoti nepavyko \n"
             flag = False
     print(error)
     answer = make_response(jsonify(error, flag, 200))
+    return answer
+
+@app.route("/get_number", methods=["POST"])
+@login_required
+def get_number():
+    req = request.get_json()
+    print(req)
+    number = db_operations.get_invoice_number(current_user.id, req['series']),
+    answer = make_response(jsonify(number, 200))
+    return answer
+
+@app.route("/delete-invoice", methods=["POST"])
+@login_required
+def delete_invoice():
+    req = request.get_json()
+    action_flag = db_operations.delete_invoice(req['invoice_id'], current_user.id)
+    data = {
+        'result': action_flag,
+    }
+
+    answer = make_response(jsonify(data, 200))
     return answer
 
 @app.context_processor

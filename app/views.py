@@ -94,14 +94,30 @@ def login():
             data['s_error'] = error
             return render_template("public/index.html", data=data)
 
+@app.route("/demo-user", methods=["POST"])
+def demo_user_login():
+    if current_user.is_authenticated:
+        return redirect('/list')
+    demo_user = db_operations.get_demo_user()
+    if demo_user:
+        login_user(demo_user, remember=False)
+        return redirect(url_for('list_route'))
+    else:
+        data = {'r_error': "",
+                's_error': "",
+                's_login': "",
+                'r_name': "",
+                'r_email': "",
+                's_password': "",
+                }
+        return render_template("public/index.html", data=data)
 
 @app.route("/list", methods=["GET"])
 @login_required
 def list_route():
     data = validation.validate_user_data(current_user)
     invoices = db_operations.collect_invoices(current_user.id)
-    print(invoices)
-    return render_template("registered/list.html", data=data, invoices=invoices)
+    return render_template("registered/list.html", data=data, invoices=invoices, error="")
 
 
 @app.route("/user-settings", methods=["POST"])
@@ -172,7 +188,7 @@ def new_invoice():
         'vat_code': current_user.vat_code,
         'tax_code': current_user.tax_code,
         'address': current_user.address,
-        'error': "test"
+        'error': "",
     }
 
     buyer_data = {
@@ -182,7 +198,6 @@ def new_invoice():
         'address': ""
     }
 
-    print("series:   ", current_user.series)
 
     invoice_data = {
         'date': datetime.now().strftime('%Y-%m-%d'),
@@ -193,11 +208,13 @@ def new_invoice():
         'sum_before_vat': 0,
         'vat': 0,
         'sum_after_vat': 0,
+        'id': 'noid',
+        'lines': [],
 
     }
 
     for key in user_data:
-        if user_data[key] == None:
+        if not user_data[key]:
             user_data[key] = ""
 
     return render_template("registered/invoice.html", user_data=user_data, invoice_data=invoice_data, buyer_data=buyer_data)
@@ -217,7 +234,10 @@ def calculate_lines():
 @login_required
 def save_new_invoice():
     req = request.get_json()
-    error = invoice_validation.unique_invoice_name_check(req)
+    print(req)
+    error = ""
+    if req['id'] == 'noid':
+        error += invoice_validation.unique_invoice_name_check(req, current_user.id)
     error += invoice_validation.invoice_validation(req)
     flag = False
     if error == "":
@@ -231,12 +251,21 @@ def save_new_invoice():
         if not db_operations.edit_user(current_user.id, seller_info):
             flag = False
             error += "Pardavėjo duomenys išsauguoti nepavyko \n"
-        elif not db_operations.save_invoice_to_db(req, current_user.id):
-            error += "Išsauguoti nepavyko \n"
-            flag = False
+        if req['id'] == 'noid' and flag:
+            if not db_operations.save_invoice_to_db(req, current_user.id):
+                error += "Išsaugoti nepavyko \n"
+                flag = False
+        elif flag:
+            if not db_operations.edit_invoice_to_db(req, current_user.id):
+                error += "Išsaugoti nepavyko \n"
+                flag = False
+        else:
+            error += "Išsaugoti nepavyko \n"
     print(error)
     answer = make_response(jsonify(error, flag, 200))
     return answer
+
+
 
 @app.route("/get_number", methods=["POST"])
 @login_required
@@ -258,6 +287,55 @@ def delete_invoice():
 
     answer = make_response(jsonify(data, 200))
     return answer
+
+
+@app.route("/edit-invoice/<invoice_id>", methods=["POST"])
+@login_required
+def edit_invoice(invoice_id):
+    invoice = db_operations.get_invoice(invoice_id, current_user.id)
+    if invoice:
+        user_data = {
+            'name': current_user.name,
+            'vat_code': current_user.vat_code,
+            'tax_code': current_user.tax_code,
+            'address': current_user.address,
+            'error': "",
+        }
+
+        buyer_data = {
+            'name': invoice.buyer_name,
+            'vat_code': invoice.buyer_vat,
+            'tax_code': invoice.buyer_tax,
+            'address': invoice.buyer_address
+        }
+
+        invoice_data = {
+            'date': invoice.date,
+            'number': invoice.number,
+            'series': invoice.series,
+            'type': invoice.type,
+            "vat_setting": invoice.vat_setting,
+            'sum_before_vat': invoice.sum_before_vat,
+            'vat': invoice.vat,
+            'sum_after_vat': invoice.sum_after_vat,
+            'id': invoice.id,
+            'lines': db_operations.get_lines(invoice_id)
+        }
+
+        print(invoice_data['lines'])
+
+        for key in user_data:
+            if not user_data[key]:
+                user_data[key] = ""
+
+        return render_template("registered/invoice.html", user_data=user_data, invoice_data=invoice_data,
+                               buyer_data=buyer_data)
+
+    else:
+        data = validation.validate_user_data(current_user)
+        invoices = db_operations.collect_invoices(current_user.id)
+        error = "Pakoreguoti pasirinkta sąskaita-faktūra nepavyko"
+        return render_template("registered/list.html", data=data, invoices=invoices, error=error)
 
 @app.context_processor
 def inject_template_scope():

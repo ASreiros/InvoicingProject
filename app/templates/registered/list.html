@@ -22,8 +22,12 @@
         <a class="btn-new-invoice" href="{{url_for('new_invoice')}}"><button>Nauja sąskaita</button></a>
     </div>
     <div class="list">
+        {% if error == "" %}
         <div class="error-info noshow">
-            <p></p>
+        {% else %}
+        <div class="error-info">
+        {% endif %}    
+            <p>{{error}}</p>
         </div>
         {% if invoices|length > 0 %}
         <div class="line first-line">
@@ -42,14 +46,14 @@
                 <p>{{invoice.sum_before_vat}}</p>
                 <p>{{invoice.vat}}</p>
                 <p>{{invoice.sum_after_vat}}</p>
-                <div>
-                    <button class="edit-line"><img src="{{ url_for('static', filename='img/edit.svg')}}" alt="edit"></button>
-                    <button class="delete-line"><img src="{{ url_for('static', filename='img/delete.svg')}}" alt="edit"></button>
-                </div>
+                <form action="/edit-invoice/{{invoice.id}}" method="post">
+                    <button type="submit" class="edit-line"><img src="{{ url_for('static', filename='img/edit.svg')}}" alt="edit"></button>
+                    <button type="button" class="delete-line"><img src="{{ url_for('static', filename='img/delete.svg')}}" alt="edit"></button>
+                </form>
             </div>    
             {% endfor %}
         {% else %}
-            <h3>Jus dar neturite išrašytų sąskaitų-faktūrų</h3>
+            <h3 class="no-invoice">Jus dar neturite išrašytų sąskaitų-faktūrų</h3>
         {% endif %}        
     </div>
     {% if data.error == "" %}

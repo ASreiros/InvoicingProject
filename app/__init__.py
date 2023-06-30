@@ -9,7 +9,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///invoices_data.db"
 db = SQLAlchemy(app)
 
 
-
 from app import views
 from app import calculate
 from app import db_operations
@@ -19,6 +18,8 @@ from app import invoice_validation
 
 with app.app_context():
     db.create_all()
+    db_operations.create_demo_user()
+
 
 login_manager = LoginManager()
 login_manager.login_view = '/'

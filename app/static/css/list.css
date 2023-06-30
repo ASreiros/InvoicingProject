@@ -104,7 +104,7 @@
     font-size: 16px;
 }
 
-.line>div>button{
+.line>form>button{
     border: rgba(111, 164, 194, 1) 2px solid;
     cursor: pointer;
     padding: 5px;
@@ -112,7 +112,7 @@
     position: relative;
 }
 
-.line>div>button>img{
+.line>form>button>img{
     object-fit: contain;
     width: 25px;
     height: 25px;
@@ -162,6 +162,10 @@
     padding: 10px 20px;
 }
 
+.no-invoice{
+    color: rgba(111, 164, 194, 1);
+    font-size: 24px;
+}
 
 
 .noshow{

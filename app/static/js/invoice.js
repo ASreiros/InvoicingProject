@@ -3,9 +3,6 @@ const documentType = document.querySelector('#inv-type').innerHTML
 if (documentType == 'sąskaita-faktūra'){
     document.querySelector('#VAT-settings').classList.add("noshow")
     document.querySelector('#total-sum-holder-vat').classList.add("noshow")
-    console.log("no show added");
-} else{
-    console.log(documentType);
 }
 
 document.querySelector('.basic-info>.doc-name>img').addEventListener('click',function(){
@@ -40,8 +37,6 @@ document.querySelector(".date-input>p").addEventListener("click", () => {
     document.querySelector(".date-input>input").showPicker();
   });
 document.querySelector(".date-input>input").addEventListener('change', () => {
-    console.log('some change');
-    console.log(document.querySelector(".date-input>input").value);
     document.querySelector(".date-input>p").innerHTML = document.querySelector(".date-input>input").value
 });
 
@@ -67,20 +62,21 @@ document.querySelector('#add-line').addEventListener('click', ()=>{
 document.querySelector('#pvm-tipas').addEventListener("change", input_entered)
 
 function add_usability_to_new_line(){
-    remove_buttons = document.querySelectorAll('.remove-line')
-    remove_button = remove_buttons[remove_buttons.length-1]
-    .addEventListener('click',(e)=>{
-        if (window.confirm("Ar norite ištrinti visa eilutė?")){
-            e.target.parentElement.remove()
-            input_entered()
+    document.querySelectorAll('.remove-line').forEach(rbutton=>{
+        if (!rbutton.classList.contains("remover")){
+            rbutton.classList.add("remover")
+            rbutton.addEventListener('click',(e)=>{
+                if (window.confirm("Ar norite ištrinti visa eilutė?")){
+                    e.target.parentElement.remove()
+                    input_entered()
+                    }
+                })
         }
     })
-
-
     document.querySelectorAll('.user-input').forEach(inp=>{
         inp.addEventListener("input", input_entered)
-    })
-
+        })
+    
 }
 
 add_usability_to_new_line()
@@ -107,7 +103,6 @@ function input_entered(){
         'lines': lines_data,
         'vat-type':document.querySelector('#pvm-tipas').value,
     }
-    console.log("data before fetch",data);
 
     fetch(`${window.origin}/calculate_lines`,{
         method: "POST",
@@ -125,9 +120,7 @@ function input_entered(){
         }
 
         response.json().then(function(info){
-            console.log("info after fetch:",info);
             const data = info[0]['data']
-            console.log(data);
             document.querySelector('#beforeVAT').value = data['total_before_VAT']
             document.querySelector('#VAT').value = data['VAT']
             document.querySelector('#afterVAT').value = data['total_after_VAT']
@@ -176,8 +169,11 @@ form.addEventListener('submit', (event) => {
         "vat": document.querySelector('#VAT').value,
         "vatTypas": document.querySelector('#pvm-tipas').value,
         "afterVat": document.querySelector('#afterVAT').value, 
+        "id": document.querySelector('#invoice-id').value, 
         "lines": lines
     }
+
+    
 
 
     fetch(`${window.origin}/save-invoice`,{
@@ -197,11 +193,19 @@ form.addEventListener('submit', (event) => {
 
         response.json().then(function(info){
             console.log("info after fetch:",info);
-            const aElement = document.createElement('a');
-            const href = `${window.origin}/list`
-            aElement.href = href;
-            aElement.click();
-            aElement.remove();
+            if (!info[1] || info[0] != ""){
+                document.querySelector(".error-holder").classList.remove('noshow')
+                document.querySelector(".error-holder>.error-first").innerText = "Išsaugoti nepavyko."
+                document.querySelector(".error-holder>.error-second").innerText = info[0]
+            } else{
+                const aElement = document.createElement('a');
+                const href = `${window.origin}/list`
+                aElement.href = href;
+                aElement.click();
+                aElement.remove();
+            }
+
+
         });
     });
 })        

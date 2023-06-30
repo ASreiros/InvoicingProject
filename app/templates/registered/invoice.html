@@ -14,6 +14,11 @@
     <a href="{{url_for('list_route')}}"><button id="list-btn"><img src="{{ url_for('static', filename='img/list.svg')}}" alt="Grižti į sąrašą"></button></a> 
   </div>
   <form class="invoice" action="/save-invoice" method="post">
+    <input id="invoice-id" type="hidden" readonly value="{{invoice_data['id']}}">
+    <div class="error-holder noshow">
+      <p class="error-first"></p>
+      <p class="error-second"></p>
+    </div>
     <div class="basic-info">
       <div class="doc-name">
         <h2 id="inv-type">{{invoice_data['type']}}</h2>
@@ -64,14 +69,27 @@
         <p>Kaina</p>
         <p>Suma</p>
       </div>
-      <div class="invoice-line">
-        <button type="button" class="remove-line">-</button>
-        <input class="product" name="product-name" required maxlength="50" type="text">
-        <input class="vnt user-input" name="product-vnt" required step="0.01" type="number" value="1">
-        <input class ='vnt-name' name="vnt-name" type="text" required maxlength="5" value="vnt">
-        <input class="price user-input" name="price" step="0.01" required type="number" value="0">
-        <input class="total" name="line-total" type="number" readonly value="0">
-      </div>
+      {% if invoice_data['lines']|length > 0 %}
+        {% for line in invoice_data['lines'] %}
+        <div class="invoice-line">
+          <button type="button" class="remove-line">-</button>
+          <input class="product" name="product-name" required maxlength="50" type="text" value="{{line.product}}">
+          <input class="vnt user-input" name="product-vnt" required step="0.01" type="number" value="{{line.quantity}}">
+          <input class ='vnt-name' name="vnt-name" type="text" required maxlength="5" value="{{line.unit}}">
+          <input class="price user-input" name="price" step="0.01" required type="number" value="{{line.price}}">
+          <input class="total" name="line-total" type="number" readonly value="{{line.total}}">
+        </div>
+        {% endfor %}
+      {% else %}
+        <div class="invoice-line">
+          <button type="button" class="remove-line">-</button>
+          <input class="product" name="product-name" required maxlength="50" type="text">
+          <input class="vnt user-input" name="product-vnt" required step="0.01" type="number" value="1">
+          <input class ='vnt-name' name="vnt-name" type="text" required maxlength="5" value="vnt">
+          <input class="price user-input" name="price" step="0.01" required type="number" value="0">
+          <input class="total" name="line-total" type="number" readonly value="0">
+        </div>
+      {% endif %}   
       <div id="add-line-holder" class="add-line-holder">
         <button type="button" id="add-line" class="add-line">+</button>
       </div>

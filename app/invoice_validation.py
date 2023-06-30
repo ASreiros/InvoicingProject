@@ -11,11 +11,11 @@ def is_float(string):
 		return False
 
 
-def unique_invoice_name_check(data):
+def unique_invoice_name_check(data, user_id):
 	error = ""
 	try:
 		full_number = data['series'] + data['number']
-		repeating_number = models.Invoice.query.filter_by(full_number=full_number).first()
+		repeating_number = models.Invoice.query.filter_by(full_number=full_number, user_id=user_id).first()
 		if repeating_number:
 			error += "Sąskaitos faktūros numeris neunikalus \n"
 		return error
@@ -60,6 +60,7 @@ def invoice_validation(data):
 		return "Dokumentas neturi reikalingu duomenų \n"
 	else:
 		return error
+
 
 
 

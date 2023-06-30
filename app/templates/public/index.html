@@ -14,11 +14,11 @@
     <div class="left-part">
       <h1>Sąskaita</h1>
       <p>Sąskaitų faktūrų išrašymo modulis <span>nemokamai</span></p>
-      <div class="btn-block">
-        <button id="join-btn" class="btn-main">Prisijungti</button>
-        <button id="register-btn" class="btn-main">Registruotis</button>
-        <button id="demo-btn" class="btn-main">Demo</button>
-      </div>
+      <form class="btn-block" action="/demo-user" method="post">
+        <button id="join-btn" type="button" class="btn-main">Prisijungti</button>
+        <button id="register-btn" type="button" class="btn-main">Registruotis</button>
+        <button id="demo-btn" type="submit" class="btn-main">Demo</button>
+      </form>
     </div>
     <img draggable="false" src="{{url_for('static', filename='img/accountant.png')}}" alt="accountant">
   </div>

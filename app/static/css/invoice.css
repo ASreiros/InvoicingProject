@@ -46,7 +46,18 @@
     min-height: 743px;
     background-color: white;
     box-shadow: 0 1px 2px #000000, 0 4px 10px #525252;
+    position: relative;
 
+}
+
+.invoice>.error-holder{
+    position: absolute;
+    left: 0;
+    top: -75px;
+    width: 100%;
+    display: block;
+    background-color: #6FA4C2;
+    color: white;
 }
 
 
@@ -313,6 +324,6 @@ input:read-only{
 
 
 .noshow{
-    display: none;
+    display: none !important;
 }
 

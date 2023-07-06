@@ -1,11 +1,13 @@
 from app import app
-from flask import render_template, jsonify, request, make_response, redirect, url_for
+from flask import render_template, jsonify, request, make_response, redirect, url_for, send_file, send_from_directory
 from app import calculate
 from app import db_operations
 from app import validation
 from app import invoice_validation
+from app import generate_pdf
 from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user, current_user
 from datetime import datetime
+from fpdf import FPDF
 
 
 
@@ -236,7 +238,8 @@ def save_new_invoice():
     req = request.get_json()
     print(req)
     error = ""
-    if req['id'] == 'noid':
+    invoice_id = req['id']
+    if invoice_id == 'noid':
         error += invoice_validation.unique_invoice_name_check(req, current_user.id)
     error += invoice_validation.invoice_validation(req)
     flag = False
@@ -252,19 +255,28 @@ def save_new_invoice():
             flag = False
             error += "Pardavėjo duomenys išsauguoti nepavyko \n"
         if req['id'] == 'noid' and flag:
-            if not db_operations.save_invoice_to_db(req, current_user.id):
-                error += "Išsaugoti nepavyko \n"
+            save_result = db_operations.save_invoice_to_db(req, current_user.id)
+            invoice_id = save_result[1]
+            if not save_result[0]:
+                error += "Dokumentas nebuvo išsaugotas \n"
                 flag = False
         elif flag:
             if not db_operations.edit_invoice_to_db(req, current_user.id):
-                error += "Išsaugoti nepavyko \n"
+                error += "Dokumentas nebuvo išsaugotas \n"
                 flag = False
         else:
-            error += "Išsaugoti nepavyko \n"
+            error += "Dokumentas nebuvo išsaugotas \n"
     print(error)
-    answer = make_response(jsonify(error, flag, 200))
+    answer = make_response(jsonify(error, flag, invoice_id, 200))
     return answer
 
+@app.route("/get-pdf/<invoice_id>")
+@login_required
+def get_pdf(invoice_id):
+    user_id = current_user.id
+    pdf = generate_pdf.create_pdf(current_user, invoice_id)
+    return send_from_directory('invoice', pdf, as_attachment=True)
+    # return send_file(pdf, download_name='invoice.pdf', as_attachment=True)
 
 
 @app.route("/get_number", methods=["POST"])

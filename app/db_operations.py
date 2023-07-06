@@ -102,6 +102,7 @@ def save_invoice_to_db(data, user_id):
 							 vat=data['vat'],
 							 sum_after_vat=data['afterVat'],
 							 user_id=user_id)
+
 	try:
 		db.session.add(invoice)
 		db.session.commit()
@@ -113,10 +114,10 @@ def save_invoice_to_db(data, user_id):
 		for line in data['lines']:
 			line['invoice_id'] = data['id']
 		if save_invoice_lines(data['lines']):
-			return True
+			return [True, invoice.id]
 		else:
 			delete_invoice(invoice.id, user_id)
-			return False
+			return [False, invoice.id]
 
 
 def edit_invoice_to_db(data, user_id):

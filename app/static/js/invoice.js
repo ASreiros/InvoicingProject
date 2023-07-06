@@ -170,7 +170,7 @@ form.addEventListener('submit', (event) => {
         "vatTypas": document.querySelector('#pvm-tipas').value,
         "afterVat": document.querySelector('#afterVAT').value, 
         "id": document.querySelector('#invoice-id').value, 
-        "lines": lines
+        "lines": lines,
     }
 
     
@@ -198,11 +198,20 @@ form.addEventListener('submit', (event) => {
                 document.querySelector(".error-holder>.error-first").innerText = "Išsaugoti nepavyko."
                 document.querySelector(".error-holder>.error-second").innerText = info[0]
             } else{
-                const aElement = document.createElement('a');
-                const href = `${window.origin}/list`
-                aElement.href = href;
-                aElement.click();
-                aElement.remove();
+                invoice_id = info[2]
+                document.querySelector('#invoice-id').value = invoice_id
+                const file_link = `/get-pdf/${invoice_id}`
+                const fElement = document.createElement('a');
+                fElement.href = file_link;
+                fElement.setAttribute('target', '_blank');
+                fElement.click();
+                fElement.remove();
+
+                // const aElement = document.createElement('a');
+                // const href = `${window.origin}/list`
+                // aElement.href = href;
+                // aElement.click();
+                // aElement.remove();
             }
 
 

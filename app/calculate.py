@@ -13,13 +13,16 @@ def calculate_invoice_lines(req):
 			'5': 0.05,
 			'6': 0.06,
 			'0': 0,
+			'21a': 0.21,
 		}
 
 		koeficent = vat_types[req['vat-type']]
 		req['VAT'] = round(req['total_before_VAT'] * koeficent, 2)
-
+		print("pvm nustatymas: ",req['vat-type'])
 		if not req['vat-type'] == '21a':
 			req['total_after_VAT'] = round(req['total_before_VAT'] + req['VAT'], 2)
+		else:
+			req['total_after_VAT'] = round(req['total_before_VAT'])
 	else:
 		req['VAT'] = 0
 		req['total_after_VAT'] = 0

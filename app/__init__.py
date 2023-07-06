@@ -36,3 +36,4 @@ def load_user(user_id):
 from app import views
 from app import calculate
 from app import db_operations
+from app import generate_pdf

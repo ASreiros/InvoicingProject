@@ -22,6 +22,16 @@ body{
     font-size: 12px;
 }
 
+@media (max-width: 370px) {
+    .main-screen>.left-part{
+        align-items: center;
+    }
+
+    .main-screen>.left-part>h1{
+        font-size: 48px;
+    }
+}
+
 .main-screen>img{
     margin-top: 15px;
     width: 40vw;

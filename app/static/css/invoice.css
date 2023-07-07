@@ -206,7 +206,7 @@
 
 
 .first-line>p:nth-of-type(2){
-    width: 300px;
+    width: calc(300px / var(--size-divisor));
     text-align: left;
 }
 
@@ -226,7 +226,7 @@
 }
 
 .invoice-line input{
-    width: 100px;
+    width: calc(100px / var(--size-divisor));
 }
 
 .invoice-line input[type="number"]{
@@ -234,12 +234,12 @@
 }
 
 .invoice-line>input[type="text"]{
-    width: 50px;
+    width: calc(50px / var(--size-divisor));
     text-align: center;
 }
 
 .invoice-line>input[type="text"]:nth-of-type(1){
-    width: 400px;
+    width: calc(400px / var(--size-divisor));
     text-align: left;
 }
 
@@ -320,6 +320,83 @@ input:read-only{
     min-width: 100px;
     text-transform: uppercase;
     cursor: pointer;
+}
+
+@media (max-width: 1019px) {
+    .invoice{
+        width: 900px;
+    }
+
+    .invoice>div{
+        width: 98%;
+    }
+}
+
+@media (max-width: 899px) {
+    .invoice{
+        width: 550px;
+    }
+
+    .contacts-holder{
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+
+}
+
+@media (max-width: 599px) {
+    .invoice{
+        width: 320px;
+    }
+
+    .basic-info>.doc-name>img{
+        right: 50%;
+        bottom: 0%;
+    }
+
+    .contacts{
+        width: 200px;
+        min-height: 80px;
+        font-size: 8;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        text-align: left;
+    }
+
+    .first-line>p{
+        font-size: 12px;
+    }
+
+    .first-line>p:nth-of-type(6){
+        margin-right: 0px;
+    }
+
+    .invoice-line input{
+        font-size: 10px;
+    }
+
+    .button-holder{
+        display: flex;
+        flex-direction: row;
+        width: fit-content;
+        margin: 10px 10px 10px auto;
+        gap: 10px;
+    }
+
+    .button-holder button{
+        padding: 5px 5px;
+        min-width: 50px;
+
+    }
+
+    .invoice-line>input:nth-of-type(3){
+        width: 20px;
+        margin-right: 10px;
+    }
 }
 
 

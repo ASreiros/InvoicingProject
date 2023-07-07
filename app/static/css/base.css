@@ -167,3 +167,19 @@ body * {
         left: 0;
         background-color: rgba(0, 0, 0,0.1);
     }
+
+    :root {
+        --size-divisor: 1;
+      }
+
+      @media (max-width: 899px) {
+        :root {
+            --size-divisor: 2;
+          }
+      }
+
+      @media (max-width: 599px) {
+        :root {
+            --size-divisor: 4;
+          }
+      }

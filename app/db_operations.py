@@ -23,7 +23,7 @@ def create_demo_user():
 				'address': "Taikos pr. 1, Klaipėda",
 			}
 			edit_user(1, data)
-			invoice_data = {'type': 'pvm sąskaita-faktūra', 'date': '2023-06-30', 'series': 'INV', 'number': '1', 'seller-name': 'demo', 'seller-tax': '123456789', 'seller-vat-tax': 'LT123456789', 'seller-address': 'Taikos pr. 1, Klaipėda', 'buyer-name': 'Demo pirkėjas', 'buyer-tax': '1238578', 'buyer-vat-tax': '', 'buyer-address': '', 'beforeVat': '440.68', 'vat': '92.54', 'vatTypas': '21', 'afterVat': '533.22', 'id': 'noid', 'lines': [{'product': 'Kedės', 'quantity': '12', 'unit': 'vnt', 'price': '10', 'total': '120'}, {'product': 'Sofa', 'quantity': '1', 'unit': 'vnt', 'price': '155.32', 'total': '155.32'}, {'product': 'Stalas', 'quantity': '3', 'unit': 'vnt', 'price': '55.12', 'total': '165.36'}]}
+			invoice_data = {'type': 'pvm sąskaita-faktūra', 'date': '2023-06-30', 'series': 'INV', 'number': '1', 'seller-name': 'demo', 'seller-tax': '123456789', 'seller-vat-tax': 'LT123456789', 'seller-address': 'Taikos pr. 1, Klaipėda', 'buyer-name': 'Demo pirkėjas', 'buyer-tax': '1238578', 'buyer-vat-tax': '', 'buyer-address': '', 'beforeVat': '440.68', 'vat': '92.54', 'vatTypas': '21', 'afterVat': '533.22', 'lines': [{'product': 'Kedės', 'quantity': '12', 'unit': 'vnt', 'price': '10', 'total': '120'}, {'product': 'Sofa', 'quantity': '1', 'unit': 'vnt', 'price': '155.32', 'total': '155.32'}, {'product': 'Stalas', 'quantity': '3', 'unit': 'vnt', 'price': '55.12', 'total': '165.36'}]}
 			save_invoice_to_db(invoice_data, 1)
 
 def add_user(data):
@@ -112,7 +112,7 @@ def save_invoice_to_db(data, user_id):
 	else:
 
 		for line in data['lines']:
-			line['invoice_id'] = data['id']
+			line['invoice_id'] = invoice.id
 		if save_invoice_lines(data['lines']):
 			return [True, invoice.id]
 		else:
@@ -160,6 +160,7 @@ def edit_invoice_to_db(data, user_id):
 			return False
 
 def save_invoice_lines(line_data):
+	print("line data", line_data)
 	lines_to_add = [models.Line(**row) for row in line_data]
 	try:
 		db.session.add_all(lines_to_add)

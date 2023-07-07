@@ -138,6 +138,9 @@ function input_entered(){
 const form = document.querySelector(".invoice")
 form.addEventListener('submit', (event) => {
     event.preventDefault();
+    console.log(event);
+    console.log(event['submitter']);
+    console.log(event['submitter']['innerHTML']);
     lines = []
     document.querySelectorAll('.invoice-line').forEach(line=>{
         line_info = {
@@ -200,18 +203,21 @@ form.addEventListener('submit', (event) => {
             } else{
                 invoice_id = info[2]
                 document.querySelector('#invoice-id').value = invoice_id
-                const file_link = `/get-pdf/${invoice_id}`
-                const fElement = document.createElement('a');
-                fElement.href = file_link;
-                fElement.setAttribute('target', '_blank');
-                fElement.click();
-                fElement.remove();
+                if (event['submitter'] == document.querySelector('#form-print')){
+                    const file_link = `/get-pdf/${invoice_id}`
+                    const fElement = document.createElement('a');
+                    fElement.href = file_link;
+                    fElement.setAttribute('target', '_blank');
+                    fElement.click();
+                    fElement.remove();
+                }
 
-                // const aElement = document.createElement('a');
-                // const href = `${window.origin}/list`
-                // aElement.href = href;
-                // aElement.click();
-                // aElement.remove();
+
+                const aElement = document.createElement('a');
+                const href = `${window.origin}/list`
+                aElement.href = href;
+                aElement.click();
+                aElement.remove();
             }
 
 

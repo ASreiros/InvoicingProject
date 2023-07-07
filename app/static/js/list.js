@@ -57,3 +57,16 @@ document.querySelectorAll('.delete-line').forEach(delBtn=>{
         }
     })
 })
+
+document.querySelectorAll('.print-line').forEach(delBtn=>{
+    delBtn.addEventListener('click', ()=>{
+        line = delBtn.parentElement.parentElement
+        invoice_id = line.querySelector('.id').value
+        const file_link = `/get-pdf/${invoice_id}`
+        const fElement = document.createElement('a');
+        fElement.href = file_link;
+        fElement.setAttribute('target', '_blank');
+        fElement.click();
+        fElement.remove();    
+    })
+})            

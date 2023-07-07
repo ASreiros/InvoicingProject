@@ -236,7 +236,6 @@ def calculate_lines():
 @login_required
 def save_new_invoice():
     req = request.get_json()
-    print(req)
     error = ""
     invoice_id = req['id']
     if invoice_id == 'noid':
@@ -273,10 +272,8 @@ def save_new_invoice():
 @app.route("/get-pdf/<invoice_id>")
 @login_required
 def get_pdf(invoice_id):
-    user_id = current_user.id
     pdf = generate_pdf.create_pdf(current_user, invoice_id)
     return send_from_directory('invoice', pdf, as_attachment=True)
-    # return send_file(pdf, download_name='invoice.pdf', as_attachment=True)
 
 
 @app.route("/get_number", methods=["POST"])

@@ -1,0 +1,173 @@
+.nav-line, .top-line{
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 30px;
+
+}
+
+.top-line{
+    justify-content: center;
+}
+
+.nav-line button{
+    border: rgba(111, 164, 194, 1) 2px solid;
+    cursor: pointer;
+    padding: 5px;
+    background-color: transparent;
+    position: relative;
+}
+
+.nav-line button::after{
+    content: "Pardavėjo nustatymai";
+    position: absolute;
+    z-index: 3;
+    left: 0px;
+    bottom: -35px;
+    transform: translate(-25%, 0);
+    display: none;
+    color: rgba(111, 164, 194, 1);
+}
+
+.nav-line button:nth-of-type(2):after{
+    content: "Slaptažodžio keitimas";
+}
+
+.nav-line>a{
+    margin-left: 40px;
+}
+
+.nav-line a>button:after{
+    content: "Atsijungti";
+}
+
+.nav-line button:hover::after{
+    display: block;
+}
+
+.nav-line h1{
+    color: rgba(111, 164, 194, 1);
+}
+
+.nav-line button>img{
+    object-fit: contain;
+    width: 25px;
+    height: 25px;
+    filter: invert(69%) sepia(23%) saturate(630%) hue-rotate(158deg) brightness(86%) contrast(87%);
+}
+
+.nav-btn-holder{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.btn-new-invoice>button{
+    font-size: 28px;
+    color: rgba(111, 164, 194, 1);
+    border: rgba(111, 164, 194, 1) solid 2px;
+    padding: 10px 20px;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.list{
+
+    margin-top: 10vh;
+    margin-bottom: 10vh;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    padding: 10px 0 10px 0;
+    width: 1010px;
+    background-color: white;
+    box-shadow: 0 1px 2px #000000, 0 4px 10px #525252;
+    position: relative;
+
+}
+
+
+.list>.line{
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    flex-direction: line;
+    color: rgba(111, 164, 194, 1);
+    border-bottom: dashed rgba(111, 164, 194, 1) 1px;
+    align-items: center;
+}
+
+.line>p, .line>div{
+    width: 16%;
+    font-size: 16px;
+}
+
+.line>form>button{
+    border: rgba(111, 164, 194, 1) 2px solid;
+    cursor: pointer;
+    padding: 5px;
+    background-color: transparent;
+    position: relative;
+}
+
+.line>form>button>img{
+    object-fit: contain;
+    width: 25px;
+    height: 25px;
+    filter: invert(69%) sepia(23%) saturate(630%) hue-rotate(158deg) brightness(86%) contrast(87%);
+}
+
+.first-line>p{
+    font-weight: bold;
+    font-size: 18px;
+}
+
+
+
+.main-screen{
+    position: relative;
+}
+
+
+.user-form{
+    top: 20hv;
+}
+
+
+.hidden-form .btn-holder{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.hidden-form .btn-holder>button{
+    width: 130px;
+} 
+
+
+.user-form .error-message{
+    bottom: -100px;
+}
+
+.error-info{
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    top: -50px;
+    left: 0;
+    color: red;
+    background-color: rgba(111, 164, 194, 1);
+    padding: 10px 20px;
+}
+
+.no-invoice{
+    color: rgba(111, 164, 194, 1);
+    font-size: 24px;
+}
+
+
+.noshow{
+    display: none;
+}

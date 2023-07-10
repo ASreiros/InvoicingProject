@@ -2,7 +2,7 @@
 This is a service where you can write, review, edit and delete your invoices and print them. Invoicing functionality is available to registered users. There is also a demo account.
 
 ## Link to working demo
-This project is hosted: 
+This project is hosted: https://invoice-asreiros.koyeb.app
 
 ## Main functionality:
 * User can register into the system

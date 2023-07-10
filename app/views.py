@@ -125,8 +125,6 @@ def list_route():
 @app.route("/user-settings", methods=["POST"])
 @login_required
 def user_settings():
-    print(request.form)
-    print(request.form['submit-button'])
     if request.form['submit-button'] == 'cancel-list':
         return redirect("/list")
     error = ""
@@ -265,7 +263,6 @@ def save_new_invoice():
                 flag = False
         else:
             error += "Dokumentas nebuvo išsaugotas \n"
-    print(error)
     answer = make_response(jsonify(error, flag, invoice_id, 200))
     return answer
 
@@ -280,7 +277,6 @@ def get_pdf(invoice_id):
 @login_required
 def get_number():
     req = request.get_json()
-    print(req)
     number = db_operations.get_invoice_number(current_user.id, req['series']),
     answer = make_response(jsonify(number, 200))
     return answer
@@ -331,7 +327,6 @@ def edit_invoice(invoice_id):
             'lines': db_operations.get_lines(invoice_id)
         }
 
-        print(invoice_data['lines'])
 
         for key in user_data:
             if not user_data[key]:

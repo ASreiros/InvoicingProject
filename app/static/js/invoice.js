@@ -115,7 +115,6 @@ function input_entered(){
     })
     .then(function(response){
         if (response.status != 200){
-            console.log("Response status is not 200:  ", response.status, response.statusText);
             return
         }
 
@@ -138,9 +137,6 @@ function input_entered(){
 const form = document.querySelector(".invoice")
 form.addEventListener('submit', (event) => {
     event.preventDefault();
-    console.log(event);
-    console.log(event['submitter']);
-    console.log(event['submitter']['innerHTML']);
     lines = []
     document.querySelectorAll('.invoice-line').forEach(line=>{
         line_info = {
@@ -190,12 +186,12 @@ form.addEventListener('submit', (event) => {
     })
     .then(function(response){
         if (response.status != 200){
-            console.log("Response status is not 200:  ", response.status, response.statusText);
+//            console.log("Response status is not 200:  ", response.status, response.statusText);
             return
         }
 
         response.json().then(function(info){
-            console.log("info after fetch:",info);
+//            console.log("info after fetch:",info);
             if (!info[1] || info[0] != ""){
                 document.querySelector(".error-holder").classList.remove('noshow')
                 document.querySelector(".error-holder>.error-first").innerText = "Išsaugoti nepavyko."
@@ -238,13 +234,13 @@ document.querySelector('#inv-series').addEventListener("input", ()=>{
     })
     .then(function(response){
         if (response.status != 200){
-            console.log("Response status is not 200:  ", response.status, response.statusText);
+//            console.log("Response status is not 200:  ", response.status, response.statusText);
             document.querySelector('#inv-number').value = "1"
             return
         }
 
         response.json().then(function(info){
-            console.log("info after fetch:",info);
+//            console.log("info after fetch:",info);
             document.querySelector('#inv-number').value = `${info[0][0]}`
         });
     });

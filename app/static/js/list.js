@@ -34,12 +34,12 @@ document.querySelectorAll('.delete-line').forEach(delBtn=>{
             })
             .then(function(response){
                 if (response.status != 200){
-                    console.log("Response status is not 200:  ", response.status, response.statusText);
+//                    console.log("Response status is not 200:  ", response.status, response.statusText);
                     return
                 }
         
                 response.json().then(function(info){
-                    console.log("info after fetch:",info);
+//                    console.log("info after fetch:",info);
                     if (info[0]['result']){
                         location.reload();
                     } else{

@@ -1,0 +1,406 @@
+.nav-line{
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    width: 100%;
+    padding: 5px 30px;
+}
+
+
+.nav-line button{
+    border: rgba(111, 164, 194, 1) 2px solid;
+    cursor: pointer;
+    padding: 5px;
+    background-color: transparent;
+    position: relative;
+}
+
+.nav-line button>img{
+    object-fit: contain;
+    width: 25px;
+    height: 25px;
+    filter: invert(69%) sepia(23%) saturate(630%) hue-rotate(158deg) brightness(86%) contrast(87%);
+}
+
+.nav-line button::after{
+    content: "Grižti į sąrašą";
+    position: absolute;
+    z-index: 3;
+    left: 0px;
+    bottom: -35px;
+    transform: translate(-25%, 0);
+    display: none;
+    color: rgba(111, 164, 194, 1);
+}
+
+.nav-line button:hover::after{
+    display: block;
+}
+
+.invoice{
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    width: 1010px;
+    min-height: 743px;
+    background-color: white;
+    box-shadow: 0 1px 2px #000000, 0 4px 10px #525252;
+    position: relative;
+
+}
+
+.invoice>.error-holder{
+    position: absolute;
+    left: 0;
+    top: -75px;
+    width: 100%;
+    display: block;
+    background-color: #6FA4C2;
+    color: white;
+}
+
+
+.invoice>div{
+    width: 90%;
+    margin: 10px auto;
+    display: flex;
+}
+
+.basic-info{
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.basic-info div, p{
+    margin-bottom: 10px;
+}
+
+
+.basic-info>.doc-name{
+    position: relative;
+    width: 100%;
+}
+
+.basic-info>.doc-name>h2{
+    text-transform: uppercase;
+    color: #00063E;
+    margin: 20px;
+}
+
+.basic-info>.doc-name>img{
+    position: absolute;
+    right: 30%;
+    bottom: 50%;
+    transform: translate(0, 50%);
+    width: 15px;
+    object-fit: contain;
+    cursor: pointer;
+}
+
+.inv-name{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.inv-name>input, .inv-name>input:focus{
+    text-align: center;
+    width: 100px;
+    height: 20px;
+    margin-right: 20px;
+    
+}
+
+
+
+.date-input{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.date-input *{
+    margin: 0;
+}
+
+.date-input>input, .date-input>input:focus{
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.date-input>p{
+}
+
+.contacts-holder{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+}
+
+.contacts{
+    width: 400px;
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: left;
+}
+
+.contacts>h4{
+    width: 100%;
+    text-align: left;
+}
+
+.contacts>input, .contacts>textarea{
+    width: 100%;
+    margin-bottom: 10px;
+    overflow: hidden;
+    resize: none;
+    background-color: #DCE8F0;
+    border-color: #DCE8F0;
+    padding: 2px 5px;
+
+}
+
+.contacts>label{
+    width: 100%;
+}
+
+
+.inv-lines{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items:flex-start;
+    
+}
+
+.inv-lines>.invoice-line, .inv-lines>.first-line{
+    display: flex;
+    flex-direction: row;
+    justify-content:space-between;
+    min-width: 100%;
+    flex-wrap: wrap;
+    margin: 10px 0;
+}
+
+
+.first-line>p{
+    text-align: center;
+    width: 50px;
+    margin: 0;
+    text-transform:uppercase;
+    text-decoration: underline;
+}
+
+.first-line>p:nth-of-type(1){
+    width: 0px;
+}
+
+
+.first-line>p:nth-of-type(2){
+    width: calc(300px / var(--size-divisor));
+    text-align: left;
+}
+
+.first-line>p:nth-of-type(4){
+    width: 30px;
+}
+
+.first-line>p:nth-of-type(6){
+    margin-right: 20px;
+}
+
+
+.invoice-line input, .invoice-line input:focus{
+    margin-right: 20px;
+    border: #6FA4C2 solid 1px;
+    outline: none;
+}
+
+.invoice-line input{
+    width: calc(100px / var(--size-divisor));
+}
+
+.invoice-line input[type="number"]{
+    text-align: right;
+}
+
+.invoice-line>input[type="text"]{
+    width: calc(50px / var(--size-divisor));
+    text-align: center;
+}
+
+.invoice-line>input[type="text"]:nth-of-type(1){
+    width: calc(400px / var(--size-divisor));
+    text-align: left;
+}
+
+.invoice-line>button, .add-line-holder>button{
+    border: #6FA4C2 solid 1px;
+    color: #6FA4C2;
+    width: 20px;
+    height: 20px;
+    font-size: 18px;
+    line-height: 18px;
+    cursor: pointer;
+    background-color: #DCE8F0;
+}
+
+input:read-only{
+    background-color: #DCE8F0;
+}
+
+
+.first-sum-holder{
+    display: flex;
+    width: fit-content;
+    align-items:baseline;
+    gap: 50px;
+    flex-direction: row;
+}
+
+.add-line-holder{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+
+
+
+
+.first-sum-holder>input{
+    width: 70px;
+    height: 20px;
+}
+
+.first-sum{
+    margin-top: 30px;
+}
+
+.right-sum-holder{
+    display: flex;
+    flex-direction: row;
+    justify-content:end;
+    min-width: 100%;
+    flex-wrap: wrap;
+    margin: 10px 0;
+}
+
+.right-sum-holder input, .right-sum-holder input:focus{
+    text-align: right;
+    width: 100px;
+    height: 20px;
+    margin-right: 20px;
+    border: #6FA4C2 solid 1px;
+    outline: none;
+}
+
+.button-holder{
+    display: flex;
+    flex-direction: row;
+    width: fit-content;
+    margin: 30px 20px 30px auto;
+    gap: 40px;
+}
+
+.button-holder button{
+    border: #6FA4C2 solid 1px;
+    background-color: #DCE8F0;
+    color: #6FA4C2;
+    padding: 10px 10px;
+    min-width: 100px;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+@media (max-width: 1019px) {
+    .invoice{
+        width: 900px;
+    }
+
+    .invoice>div{
+        width: 98%;
+    }
+}
+
+@media (max-width: 899px) {
+    .invoice{
+        width: 550px;
+    }
+
+    .contacts-holder{
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+
+}
+
+@media (max-width: 599px) {
+    .invoice{
+        width: 320px;
+    }
+
+    .basic-info>.doc-name>img{
+        right: 50%;
+        bottom: 0%;
+    }
+
+    .contacts{
+        width: 200px;
+        min-height: 80px;
+        font-size: 8;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        text-align: left;
+    }
+
+    .first-line>p{
+        font-size: 12px;
+    }
+
+    .first-line>p:nth-of-type(6){
+        margin-right: 0px;
+    }
+
+    .invoice-line input{
+        font-size: 10px;
+    }
+
+    .button-holder{
+        display: flex;
+        flex-direction: row;
+        width: fit-content;
+        margin: 10px 10px 10px auto;
+        gap: 10px;
+    }
+
+    .button-holder button{
+        padding: 5px 5px;
+        min-width: 50px;
+
+    }
+
+    .invoice-line>input:nth-of-type(3){
+        width: 20px;
+        margin-right: 10px;
+    }
+}
+
+
+.noshow{
+    display: none !important;
+}
+

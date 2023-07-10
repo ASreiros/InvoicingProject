@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/list.css')}}">
+    <link rel="icon" href="{{ url_for('static', filename='img/favicon.ico')}}">
+    <title>{{data.name}} sąskaitos</title>
+</head>
+<body>
+    <div class="nav-line">
+        <div class="nav-btn-holder">
+            <button id="btn-user-settings"><img src="{{ url_for('static', filename='img/user.png')}}" alt="Vartuotojo nustatymai"></button>
+            <button id="btn-password"><img src="{{ url_for('static', filename='img/setting.svg')}}" alt="Slaptažodžio keitimas"></button>
+        </div>
+        <h1>{{data.name}} sąskaitos</h1>
+        <a href="{{url_for('logout')}}"><button id="logout-btn"><img src="{{ url_for('static', filename='img/exit.svg')}}" alt="Atsijungti"></button></a> 
+    </div>
+    <div class="top-line">
+        <a class="btn-new-invoice" href="{{url_for('new_invoice')}}"><button>Nauja sąskaita</button></a>
+    </div>
+    <div class="list">
+        {% if error == "" %}
+        <div class="error-info noshow">
+        {% else %}
+        <div class="error-info">
+        {% endif %}    
+            <p>{{error}}</p>
+        </div>
+        {% if invoices|length > 0 %}
+        <div class="line first-line">
+            <p>Pirkėjas</p>
+            <p>Numeris</p>
+            <p>Suma be PVM</p>
+            <p>PVM</p>
+            <p>Suma su PVM</p>
+            <p>Valdymas</p>
+        </div>
+            {% for invoice in invoices %}
+            <div class="line">
+                <input class="id" type="hidden" value="{{invoice.id}}">
+                <p class="name">{{invoice.buyer_name}}</p>
+                <p class="number">{{invoice.full_number}}</p>
+                <p>{{invoice.sum_before_vat}}</p>
+                <p>{{invoice.vat}}</p>
+                <p>{{invoice.sum_after_vat}}</p>
+                <form action="/edit-invoice/{{invoice.id}}" method="post">
+                    <button type="submit" class="edit-line"><img src="{{ url_for('static', filename='img/edit.svg')}}" alt="edit"></button>
+                    <button type="button" class="print-line"><img src="{{ url_for('static', filename='img/printer.svg')}}" alt="print"></button>
+                    <button type="button" class="delete-line"><img src="{{ url_for('static', filename='img/delete.svg')}}" alt="delete"></button>
+                </form>
+            </div>    
+            {% endfor %}
+        {% else %}
+            <h3 class="no-invoice">Jus dar neturite išrašytų sąskaitų-faktūrų</h3>
+        {% endif %}        
+    </div>
+    {% if data.error == "" %}
+    <form id="user-form" class="hidden-form user-form noshow" action="/user-settings" method="post">
+    {% else %}
+    <form id="user-form" class="hidden-form user-form" action="/user-settings" method="post">
+    {% endif %}    
+        <h2>Vartuotojo duomenys</h2>
+        <div class="input-holder">
+            <label for="c_name">Vardas/Pavadinimas sąskaitoje</label>
+            <input id="c_name" type="text" name="c_name" value="{{data.name}}">
+        </div>
+        <div class="input-holder">
+            <label for="c-tax">Mokesčio mokėtojo kodas:</label>
+            <input type="text" maxlength="50" id="c-tax" name="c-tax" value="{{data.tax}}">
+        </div>
+        <div class="input-holder">
+            <label for="s-vat">PVM kodas:</label>
+            <input type="text" maxlength="50" id="s-vat" name="s-vat"  value="{{data.vat}}">
+        </div>
+        <div class="input-holder">
+            <label for="s-address">Adresas:</label>
+            <textarea type="text" maxlength="150" id="s-address" name="s-address" rows="6" cols="30" >{{data.address}}</textarea>
+        </div>
+        {% if data.error == "" %}
+        <div class="error-message noshow">
+        {% else %}
+        <div class="error-message">
+        {% endif %}
+            <p>{{data.error}}</p>
+        </div>
+        <div class="btn-holder">
+            <button type="submit" value="cancel-list" name="submit-button">Atšaukti</button>
+            <button type="submit" value="save-list" name="submit-button">Išsaugoti</button>
+        </div>
+    </form>
+
+    {% if data.p_error == "" %}
+    <form id="password-form" class="hidden-form password-form noshow" action="/change-password" method="post">
+    {% else %}
+    <form id="password-form" class="hidden-form password-form" action="/change-password" method="post">
+    {% endif %}    
+        <h2>Slaptažodžio keitimas</h2>
+        <div class="input-holder">
+            <label for="old_password">Senas slaptažodis</label>
+            <input id="old_password" type="password" name="old_password" value="">
+        </div>
+        <div class="input-holder">
+            <label for="new_password">Naujas slaptažodis</label>
+            <input id="new_password" type="password" name="new_password">
+        </div>
+        <div class="input-holder">
+            <label for="new_password_repeat">Pakartokite slaptažodį</label>
+            <input id="new_password_repeat" type="password" name="new_password_repeat">
+            <p>Slaptažodyje turi būti bent 1 didžioji raidė [A-Z], 1 skaitmuo [0-9], bent 3 ženklų ilgis</p>
+        </div>
+        {% if data.p_error == "" %}
+        <div class="error-message noshow">
+        {% else %}
+        <div class="error-message">
+        {% endif %}
+            <p>{{data.p_error}}</p>
+        </div>
+        <div class="btn-holder">
+            <button type="submit" value="cancel" name="submit-button">Atšaukti</button>
+            <button type="submit" value="save" name="submit-button">Išsaugoti</button>
+        </div>
+    </form>
+
+    <div class="modal noshow"></div>
+    {% if data.error == ""%}
+    <div class="modal noshow"></div>
+    {% else %}
+    <div class="modal"></div>
+    {% endif %}
+    <div class="triangle"></div>
+    <div class="triangle big-triangle"></div>
+    <script src="{{url_for('static', filename='js/list.js')}}"></script>
+</body>
+</html>

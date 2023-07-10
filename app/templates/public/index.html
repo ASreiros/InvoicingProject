@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css')}}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css')}}">
+  <link rel="icon" href="{{ url_for('static', filename='img/favicon.ico')}}">
+  <title>Invoice</title>
+</head>
+<body>
+  <div class="main-screen">
+    <div class="left-part">
+      <h1>Sąskaita</h1>
+      <p>Sąskaitų faktūrų išrašymo modulis <span>nemokamai</span></p>
+      <form class="btn-block" action="/demo-user" method="post">
+        <button id="join-btn" type="button" class="btn-main">Prisijungti</button>
+        <button id="register-btn" type="button" class="btn-main">Registruotis</button>
+        <button id="demo-btn" type="submit" class="btn-main">Demo</button>
+      </form>
+    </div>
+    <img draggable="false" src="{{url_for('static', filename='img/accountant.png')}}" alt="accountant">
+  </div>
+  {% if data.r_error == "" %}
+    <form id="register-form" class="register noshow hidden-form" action="/register" method="post">
+    {% else %}
+    <form id="register-form" class="register hidden-form" action="/register" method="post">
+    {% endif %}
+    <h2>Registruotis</h2>
+    <div class="input-holder">
+      <label for="r_login">Prisijungimo vardas</label>
+      <input id="r_login" required type="text" name="r_login" value="{{data.r_login}}">
+    </div>
+    <div class="input-holder">
+      <label for="r_name">Vardas/Pavadinimas sąskaitoje</label>
+      <input id="r_name" required type="text" name="r_name" value="{{data.r_name}}">
+    </div>
+    <div class="input-holder">
+      <label for="r_email">El. paštas</label>
+      <input id="r_email" required type="email" name="r_email" value="{{data.r_email}}">
+    </div>
+    <div class="input-holder">
+      <label for="r_password">Slaptažodis</label>
+      <input id="r_password" required type="password" name="r_password">
+    </div>
+    <div class="input-holder">
+      <label for="r_password_repeat">Pakartokite slaptažodį</label>
+      <input id="r_password_repeat" required type="password" name="r_password_repeat">
+      <p>Slaptažodyje turi būti bent 1 didžioji raidė [A-Z], 1 skaitmuo [0-9], bent 3 ženklų ilgis</p>
+    </div>
+    <button type="submit" name="register_form">Registruotis</button>
+    {% if data.r_error == "" %}
+    <div class="error-message noshow">
+    {% else %}
+    <div class="error-message">
+    {% endif %}
+      <p>{{data.r_error}}</p>
+    </div>
+    <div>
+      <p>Jau turite paskyrą? <span>Prisijungti</span></p>
+    </div>
+  </form>
+  {% if data.s_error == "" %}
+  <form id="join-form" class="signin noshow hidden-form" action="/login" method="post">
+  {% else %}
+  <form id="join-form" class="signin hidden-form" action="/login" method="post">
+  {% endif %}
+    <h2>Prisijungti arba <span>Registruotis</span></h2>
+    <div class="input-holder">
+      <label for="s_login">Prisijungimo vardas</label>
+      <input id="s_login" required type="text" name="s_login" value="{{data.s_login}}">
+    </div>
+    <div class="input-holder">
+      <label for="s_password">Slaptažodis</label>
+      <input id="s_password" required type="password" name="s_password">
+    </div>
+    <button type="submit" name="signin_form">Prisijungti</button>
+    {% if data.s_error == "" %}
+    <div class="error-message noshow">
+    {% else %}
+    <div class="error-message">
+    {% endif %}
+      <p>{{data.s_error}}</p>
+    </div>
+    <div>
+      <p>Dar neturite paskyros? <span>Užsiregistruokite</span></p>
+    </div>
+
+  </form>
+
+  <!-- Cookie consent -->
+  {% if cookies_check() %}
+        {# then user has already consented so no requirement for consent banner #}
+{% else %}
+        {# show a cookie consent banner #}
+        <div class="cookie-consent-container">
+            <p>Šitame puslapije naudojami slapukai (angl. cookies) padeda užtikrinti Jums galimybę naršyti dar patogiau ir nauduotis prisijungimo funkcionalu</p>
+            <button id="cookie-consent">Leisti nauduoti slapukus</button>
+        </div>
+{% endif %}
+
+
+  {% if data.r_error == "" and data.s_error == ""%}
+  <div class="modal noshow"></div>
+  {% else %}
+  <div class="modal"></div>
+  {% endif %}
+
+
+  <div class="triangle"></div>
+  <div class="triangle big-triangle"></div>
+  <script src="{{url_for('static', filename='js/index.js')}}"></script>
+</body>
+</html>

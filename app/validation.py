@@ -23,7 +23,6 @@ def validate_password(password, repeat_password):
 			flag_capital = True
 		elif letter in number:
 			flag_number = True
-	print(flag_capital, flag_number)
 	if flag_number is False or flag_capital is False:
 		error += "Slaptažodis neatitinka reikalavimų dėl ženklų. "
 	return error

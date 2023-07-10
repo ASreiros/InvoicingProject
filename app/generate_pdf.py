@@ -9,7 +9,6 @@ def create_pdf(user, invoice_id):
 	delete_old_pdf()
 	pdf = FPDF()
 	pdf.add_page()
-	print(user.name)
 	invoice = db_operations.get_invoice(invoice_id=invoice_id, user_id=user.id)
 	pdf.set_margins(10, 10, 10)
 	pdf.add_font(fname='app/static/font/DejaVuSans-Bold.ttf', style='B', family='dejavu', uni=True)
@@ -20,7 +19,6 @@ def create_pdf(user, invoice_id):
 		l_txt = ""
 		if lines_info:
 			for line in lines_info:
-				print(line)
 				l_txt +=f"""
 					<tr>
 					  	<td align="left">{line.product}</td>
@@ -58,7 +56,6 @@ def create_pdf(user, invoice_id):
 			"""
 		else:
 			setting = f'{invoice.vat_setting}%'
-			print(setting)
 			if setting == "21a%":
 				setting = "21% Atvirkštinis apmokestinimas"
 			ending_txt = f"""

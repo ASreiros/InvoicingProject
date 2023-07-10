@@ -28,7 +28,6 @@ def invoice_validation(data):
 	vat_settings = ['21', '9', '5', '6', '0', '21a']
 	doc_type = ["pvm sąskaita-faktūra", "sąskaita-faktūra", "invoice"]
 	error = ""
-	print(data)
 	try:
 		if data["series"] == "" or data['number'] == "":
 			error += "Neįrašytas sąskaitos numeris arba serija"

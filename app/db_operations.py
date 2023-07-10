@@ -43,7 +43,7 @@ def check_user(data):
 	if not user:
 		return False
 	check_password_hash(user.password, data['s_password'])
-	print(user)
+	# print(user)
 	if user and check_password_hash(user.password, data['s_password']):
 		return user
 	else:
@@ -121,7 +121,7 @@ def save_invoice_to_db(data, user_id):
 
 
 def edit_invoice_to_db(data, user_id):
-	print("invoice data:", data)
+	# print("invoice data:", data)
 	invoice_info = {
 		'series': data["series"],
 		'number': data['number'],
@@ -139,10 +139,9 @@ def edit_invoice_to_db(data, user_id):
 	}
 
 	invoice = db.session.query(models.Invoice).filter_by(id=data['id'], user_id=user_id).update(invoice_info)
-	print("edit invoice ",invoice)
+	# print("edit invoice ",invoice)
 	try:
 		db.session.commit()
-		print("we are here")
 	except Exception as e:
 		print(e)
 		return False
@@ -160,7 +159,6 @@ def edit_invoice_to_db(data, user_id):
 			return False
 
 def save_invoice_lines(line_data):
-	print("line data", line_data)
 	lines_to_add = [models.Line(**row) for row in line_data]
 	try:
 		db.session.add_all(lines_to_add)
